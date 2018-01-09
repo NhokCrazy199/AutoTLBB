@@ -17,9 +17,12 @@ class MainWindow : public QMainWindow
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+  public:
+    bool initGameProcesses();
+
   private:
     Ui::MainWindow *ui;
-    HWND m_pGameProcess;
+    HWND m_gameProcesses;
 };
 
 #endif // MAINWINDOW_HPP

@@ -7,8 +7,46 @@
 #include <tchar.h>
 #include <psapi.h>
 
-void PrintProcessNameAndID( DWORD processID )
+using PId = DWORD;
+
+
+MainWindow::MainWindow(QWidget *parent) :
+  QMainWindow(parent),
+  ui(new Ui::MainWindow)
 {
+  ui->setupUi(this);
+
+  // TODO
+  m_gameProcesses = ::FindWindow(nullptr, TEXT("MINGW64"));
+  qDebug() << m_gameProcesses;
+
+  this->initGameProcesses();
+}
+
+MainWindow::~MainWindow()
+{
+  delete ui;
+}
+
+bool MainWindow::initGameProcesses()
+{
+  PId aProcesses[1024], cbNeeded, cProcesses;
+
+  if (!EnumProcesses(aProcesses, sizeof(aProcesses), &cbNeeded))
+  {
+    return false;
+  }
+
+  cProcesses = cbNeeded / sizeof(PId);
+  for (unsigned int i = 0; i < cProcesses; i++)
+  {
+    if(aProcesses[i] == 0)
+    {
+      continue;
+    }
+
+    PId &processID = aProcesses[i];
+
     TCHAR szProcessName[MAX_PATH] = TEXT("<unknown>");
 
     // Get a handle to the process.
@@ -22,7 +60,7 @@ void PrintProcessNameAndID( DWORD processID )
     if (NULL != hProcess )
     {
         HMODULE hMod;
-        DWORD cbNeeded;
+        PId cbNeeded;
 
         if ( EnumProcessModules( hProcess, &hMod, sizeof(hMod),
              &cbNeeded) )
@@ -38,39 +76,8 @@ void PrintProcessNameAndID( DWORD processID )
 
     // Release the handle to the process.
 
-    CloseHandle( hProcess );
-}
-
-MainWindow::MainWindow(QWidget *parent) :
-  QMainWindow(parent),
-  ui(new Ui::MainWindow)
-{
-  ui->setupUi(this);
-
-  // TODO
-  m_pGameProcess = ::FindWindow(nullptr, TEXT("MINGW64"));
-  qDebug() << m_pGameProcess;
-
-  DWORD aProcesses[1024], cbNeeded, cProcesses;
-
-  if ( !EnumProcesses( aProcesses, sizeof(aProcesses), &cbNeeded ) )
-  {
-
+    CloseHandle(hProcess);
   }
-  else
-  {
-    cProcesses = cbNeeded / sizeof(DWORD);
-    for ( int i = 0; i < cProcesses; i++ )
-    {
-        if( aProcesses[i] != 0 )
-        {
-            PrintProcessNameAndID( aProcesses[i] );
-        }
-    }
-  }
-}
 
-MainWindow::~MainWindow()
-{
-  delete ui;
+  return true;
 }
