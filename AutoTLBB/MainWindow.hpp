@@ -8,6 +8,8 @@
 
 #include <Windows.h>
 
+extern const std::vector<std::string> g_gameClassNames;
+
 namespace Ui {
 class MainWindow;
 }
@@ -27,7 +29,6 @@ class MainWindow : public QMainWindow
   private:
     Ui::MainWindow *ui;
     std::vector<HWND> m_gamesProcess;
-    std::string m_gameWindowClass;
 };
 
 #endif // MAINWINDOW_HPP

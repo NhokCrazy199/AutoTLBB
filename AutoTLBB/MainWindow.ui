@@ -9,9 +9,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>534</width>
-    <height>564</height>
+    <width>300</width>
+    <height>602</height>
    </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>16777215</height>
+   </size>
   </property>
   <property name="cursor">
    <cursorShape>ArrowCursor</cursorShape>
@@ -45,18 +51,24 @@
     <property name="verticalSpacing">
      <number>6</number>
     </property>
-    <item row="0" column="0">
+    <item row="3" column="0">
      <widget class="QTableWidget" name="gameListTableWidget">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
       <property name="minimumSize">
        <size>
-        <width>521</width>
-        <height>192</height>
+        <width>300</width>
+        <height>150</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>600</height>
        </size>
       </property>
       <property name="contextMenuPolicy">
@@ -64,6 +76,9 @@
       </property>
       <property name="autoFillBackground">
        <bool>true</bool>
+      </property>
+      <property name="lineWidth">
+       <number>1</number>
       </property>
       <property name="horizontalScrollBarPolicy">
        <enum>Qt::ScrollBarAsNeeded</enum>
@@ -77,14 +92,20 @@
       <property name="columnCount">
        <number>6</number>
       </property>
+      <attribute name="horizontalHeaderVisible">
+       <bool>true</bool>
+      </attribute>
       <attribute name="horizontalHeaderCascadingSectionResizes">
        <bool>true</bool>
       </attribute>
       <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>70</number>
+       <number>44</number>
       </attribute>
       <attribute name="horizontalHeaderHighlightSections">
        <bool>true</bool>
+      </attribute>
+      <attribute name="horizontalHeaderMinimumSectionSize">
+       <number>21</number>
       </attribute>
       <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
        <bool>false</bool>
@@ -93,6 +114,9 @@
        <bool>true</bool>
       </attribute>
       <attribute name="verticalHeaderCascadingSectionResizes">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="verticalHeaderStretchLastSection">
        <bool>false</bool>
       </attribute>
       <column>
@@ -127,8 +151,14 @@
       </column>
      </widget>
     </item>
-    <item row="1" column="0">
+    <item row="4" column="0">
      <widget class="QTabWidget" name="tabWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
       </property>
@@ -154,7 +184,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>534</width>
+     <width>300</width>
      <height>20</height>
     </rect>
    </property>

@@ -10,6 +10,11 @@
 #include <tchar.h>
 #include <psapi.h>
 
+const std::vector<std::string> g_gameClassNames{
+  "TianLongBaBu WndClass"
+};
+
+
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::MainWindow)
@@ -24,11 +29,35 @@ MainWindow::MainWindow(QWidget *parent) :
   this->setStyleSheet(styleSheet.readAll());
   styleSheet.close();
 
-  m_gameWindowClass = "TianLongBaBu WndClass";
-
   // TODO
   if (this->initGamesProcess())
   {
+    ui->gameListTableWidget->setRowCount(m_gamesProcess.size());
+    for (int i = 0; i < m_gamesProcess.size(); i++)
+    {
+      auto no = new QTableWidgetItem("111111");
+      ui->gameListTableWidget->setItem(i, 1, no);
+
+      auto username = new QTableWidgetItem("111111");
+      ui->gameListTableWidget->setItem(i, 2, username);
+
+      auto hp = new QTableWidgetItem("111111111");
+      ui->gameListTableWidget->setItem(i, 3, hp);
+
+      auto mp = new QTableWidgetItem("1");
+      ui->gameListTableWidget->setItem(i, 4, mp);
+
+      auto pet_hp = new QTableWidgetItem("1");
+      ui->gameListTableWidget->setItem(i, 5, pet_hp);
+
+      auto mode = new QTableWidgetItem("1");
+      ui->gameListTableWidget->setItem(i, 6, mode);
+
+      auto status = new QTableWidgetItem("1");
+      ui->gameListTableWidget->setItem(i, 7, status);
+
+      qDebug() << "Added";
+    }
   }
 }
 
@@ -44,19 +73,13 @@ static BOOL CALLBACK EnumWindowsProcCallback(HWND hwnd, LPARAM lParam)
 
   auto gamesProcess = reinterpret_cast<std::vector<HWND>*>(lParam);
 
-  std::vector<std::string> classNames{
-    "TianLongBaBu WndClass"
-  };
-
-  for (const auto& name : classNames)
+  for (const auto& name : g_gameClassNames)
   {
     if (std::strcmp(className, name.c_str()) == 0)
     {
       gamesProcess->push_back(hwnd);
     }
   }
-
-  qDebug() << gamesProcess->size() << className;
 
   return TRUE;
 }
@@ -65,7 +88,5 @@ bool MainWindow::initGamesProcess()
 {
   ::EnumWindows(&EnumWindowsProcCallback, reinterpret_cast<LPARAM>(&m_gamesProcess));
 
-  qDebug() << m_gamesProcess.size();
-
-  return true;
+  return !m_gamesProcess.empty();
 }
