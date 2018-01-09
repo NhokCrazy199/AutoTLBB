@@ -35,3 +35,6 @@ HEADERS += \
 
 FORMS += \
         MainWindow.ui
+
+RESOURCES += \
+        QDarkStyle/style.qrc

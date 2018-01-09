@@ -2,6 +2,7 @@
 #include "ui_MainWindow.h"
 
 #include <QMessageBox>
+#include <QFile>
 #include <QDebug>
 
 #include <tchar.h>
@@ -16,11 +17,21 @@ MainWindow::MainWindow(QWidget *parent) :
 {
   ui->setupUi(this);
 
-  // TODO
-  m_gameProcesses = ::FindWindow(nullptr, TEXT("MINGW64"));
-  qDebug() << m_gameProcesses;
+  this->setMinimumSize(this->size());
+  ui->gameListTableWidget->horizontalHeader()->resizeSections(QHeaderView::Stretch);
 
-  this->initGameProcesses();
+  QFile styleSheet(":/qdarkstyle/style.qss");
+  styleSheet.open(QFile::ReadOnly);
+  this->setStyleSheet(styleSheet.readAll());
+  styleSheet.close();
+
+  // TODO
+  m_gamesProcess = ::FindWindow(nullptr, TEXT("MINGW64"));
+  qDebug() << m_gamesProcess;
+
+  if (this->initGamesProcess())
+  {
+  }
 }
 
 MainWindow::~MainWindow()
@@ -28,7 +39,7 @@ MainWindow::~MainWindow()
   delete ui;
 }
 
-bool MainWindow::initGameProcesses()
+bool MainWindow::initGamesProcess()
 {
   PId aProcesses[1024], cbNeeded, cProcesses;
 
@@ -51,7 +62,7 @@ bool MainWindow::initGameProcesses()
 
     // Get a handle to the process.
 
-    HANDLE hProcess = OpenProcess( PROCESS_QUERY_INFORMATION |
+    HANDLE hProcess = ::OpenProcess( PROCESS_QUERY_INFORMATION |
                                    PROCESS_VM_READ,
                                    FALSE, processID );
 
@@ -59,15 +70,15 @@ bool MainWindow::initGameProcesses()
 
     if (NULL != hProcess )
     {
-        HMODULE hMod;
-        PId cbNeeded;
+      HMODULE hMod;
+      PId cbNeeded;
 
-        if ( EnumProcessModules( hProcess, &hMod, sizeof(hMod),
-             &cbNeeded) )
-        {
-            GetModuleBaseName( hProcess, hMod, szProcessName,
-                               sizeof(szProcessName)/sizeof(TCHAR) );
-        }
+      if ( ::EnumProcessModules( hProcess, &hMod, sizeof(hMod),
+                               &cbNeeded) )
+      {
+        ::GetModuleBaseName( hProcess, hMod, szProcessName,
+                           sizeof(szProcessName)/sizeof(TCHAR) );
+      }
     }
 
     // Print the process name and identifier.
@@ -76,7 +87,7 @@ bool MainWindow::initGameProcesses()
 
     // Release the handle to the process.
 
-    CloseHandle(hProcess);
+    ::CloseHandle(hProcess);
   }
 
   return true;

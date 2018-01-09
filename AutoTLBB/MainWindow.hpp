@@ -11,6 +11,7 @@ class MainWindow;
 
 class MainWindow : public QMainWindow
 {
+  public:
     Q_OBJECT
 
   public:
@@ -18,11 +19,11 @@ class MainWindow : public QMainWindow
     ~MainWindow();
 
   public:
-    bool initGameProcesses();
+    bool initGamesProcess();
 
   private:
     Ui::MainWindow *ui;
-    HWND m_gameProcesses;
+    HWND m_gamesProcess;
 };
 
 #endif // MAINWINDOW_HPP
