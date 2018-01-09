@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include <Windows.h>
+
 namespace Ui {
 class MainWindow;
 }
@@ -17,6 +19,7 @@ class MainWindow : public QMainWindow
 
   private:
     Ui::MainWindow *ui;
+    HWND m_pGameProcess;
 };
 
 #endif // MAINWINDOW_HPP
