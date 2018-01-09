@@ -25,10 +25,9 @@ MainWindow::MainWindow(QWidget *parent) :
   this->setStyleSheet(styleSheet.readAll());
   styleSheet.close();
 
-  // TODO
-  m_gamesProcess = ::FindWindow(nullptr, TEXT("MINGW64"));
-  qDebug() << m_gamesProcess;
+  m_gameWindowClass = "TianLongBaBu WndClass";
 
+  // TODO
   if (this->initGamesProcess())
   {
   }
@@ -63,21 +62,22 @@ bool MainWindow::initGamesProcess()
     // Get a handle to the process.
 
     HANDLE hProcess = ::OpenProcess( PROCESS_QUERY_INFORMATION |
-                                   PROCESS_VM_READ,
-                                   FALSE, processID );
+                                    PROCESS_VM_READ,
+                                    FALSE, processID );
 
     // Get the process name.
 
-    if (NULL != hProcess )
+    if (nullptr != hProcess )
     {
       HMODULE hMod;
       PId cbNeeded;
 
       if ( ::EnumProcessModules( hProcess, &hMod, sizeof(hMod),
-                               &cbNeeded) )
+                                &cbNeeded) )
       {
         ::GetModuleBaseName( hProcess, hMod, szProcessName,
-                           sizeof(szProcessName)/sizeof(TCHAR) );
+                            sizeof(szProcessName)/sizeof(TCHAR) );
+        ::GetWind
       }
     }
 
@@ -92,3 +92,4 @@ bool MainWindow::initGamesProcess()
 
   return true;
 }
+

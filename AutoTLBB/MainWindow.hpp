@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 
+#include <string>
+#include <vector>
+
 #include <Windows.h>
 
 namespace Ui {
@@ -23,7 +26,9 @@ class MainWindow : public QMainWindow
 
   private:
     Ui::MainWindow *ui;
-    HWND m_gamesProcess;
+    std::vector<HWND> m_gamesProcess;
+    std::string m_gameWindowClass;
 };
 
 #endif // MAINWINDOW_HPP
+
