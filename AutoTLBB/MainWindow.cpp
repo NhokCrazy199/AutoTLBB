@@ -5,11 +5,10 @@
 #include <QFile>
 #include <QDebug>
 
+#include <cstring>
+
 #include <tchar.h>
 #include <psapi.h>
-
-using PId = DWORD;
-
 
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
@@ -38,58 +37,35 @@ MainWindow::~MainWindow()
   delete ui;
 }
 
+static BOOL CALLBACK EnumWindowsProcCallback(HWND hwnd, LPARAM lParam)
+{
+  char className[MAX_PATH];
+  ::GetClassNameA(hwnd, className, sizeof(className));
+
+  auto gamesProcess = reinterpret_cast<std::vector<HWND>*>(lParam);
+
+  std::vector<std::string> classNames{
+    "TianLongBaBu WndClass"
+  };
+
+  for (const auto& name : classNames)
+  {
+    if (std::strcmp(className, name.c_str()) == 0)
+    {
+      gamesProcess->push_back(hwnd);
+    }
+  }
+
+  qDebug() << gamesProcess->size() << className;
+
+  return TRUE;
+}
+
 bool MainWindow::initGamesProcess()
 {
-  PId aProcesses[1024], cbNeeded, cProcesses;
+  ::EnumWindows(&EnumWindowsProcCallback, reinterpret_cast<LPARAM>(&m_gamesProcess));
 
-  if (!EnumProcesses(aProcesses, sizeof(aProcesses), &cbNeeded))
-  {
-    return false;
-  }
-
-  cProcesses = cbNeeded / sizeof(PId);
-  for (unsigned int i = 0; i < cProcesses; i++)
-  {
-    if(aProcesses[i] == 0)
-    {
-      continue;
-    }
-
-    PId &processID = aProcesses[i];
-
-    TCHAR szProcessName[MAX_PATH] = TEXT("<unknown>");
-
-    // Get a handle to the process.
-
-    HANDLE hProcess = ::OpenProcess( PROCESS_QUERY_INFORMATION |
-                                    PROCESS_VM_READ,
-                                    FALSE, processID );
-
-    // Get the process name.
-
-    if (nullptr != hProcess )
-    {
-      HMODULE hMod;
-      PId cbNeeded;
-
-      if ( ::EnumProcessModules( hProcess, &hMod, sizeof(hMod),
-                                &cbNeeded) )
-      {
-        ::GetModuleBaseName( hProcess, hMod, szProcessName,
-                            sizeof(szProcessName)/sizeof(TCHAR) );
-        ::GetWind
-      }
-    }
-
-    // Print the process name and identifier.
-
-    qDebug() << szProcessName << processID;
-
-    // Release the handle to the process.
-
-    ::CloseHandle(hProcess);
-  }
+  qDebug() << m_gamesProcess.size();
 
   return true;
 }
-
