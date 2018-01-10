@@ -92,8 +92,7 @@ bool MainWindow::initCopiedApp()
 
   auto appCopiedFileNameArr = appFileNameArr;
   appCopiedFileNameArr[appCopiedFileNameArr.size() - 1] = QString(constants::appCopiedExt.c_str());
-  QString appCopiedFileName = appFileNameArr.join(delm);
-  qDebug() << appCopiedFileName;
+  QString appCopiedFileName = appCopiedFileNameArr.join(delm);
 
   // Make copy File
   QProcess process;
@@ -103,6 +102,8 @@ bool MainWindow::initCopiedApp()
         , {""}, "", &pid
         );
 
+  this->window()->close();
+  this->close();
   exit(0);
 
   return true;
