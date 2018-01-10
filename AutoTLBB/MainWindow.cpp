@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
   ui->setupUi(this);
 
   this->setMinimumSize(this->size());
-  ui->gameListTableWidget->horizontalHeader()->resizeSections(QHeaderView::Stretch);
+  ui->gameListTableWidget->horizontalHeader()->resizeSections(QHeaderView::ResizeToContents);
 
   QFile styleSheet(":/qdarkstyle/style.qss");
   styleSheet.open(QFile::ReadOnly);
@@ -30,10 +30,11 @@ MainWindow::MainWindow(QWidget *parent) :
   styleSheet.close();
 
   // TODO
+  m_gamesProcess.push_back(nullptr);
   if (this->initGamesProcess())
   {
     ui->gameListTableWidget->setRowCount(m_gamesProcess.size());
-    for (int i = 0; i < m_gamesProcess.size(); i++)
+    for (std::size_t i = 0; i < m_gamesProcess.size(); i++)
     {
       auto no = new QTableWidgetItem("111111");
       ui->gameListTableWidget->setItem(i, 1, no);
@@ -55,6 +56,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
       auto status = new QTableWidgetItem("1");
       ui->gameListTableWidget->setItem(i, 7, status);
+
+      ui->gameListTableWidget->setSizeAdjustPolicy(QTableWidget::QAbstractItemView::AdjustToContents);
 
       qDebug() << "Added";
     }
