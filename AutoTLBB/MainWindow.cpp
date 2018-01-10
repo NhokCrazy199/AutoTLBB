@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::MainWindow)
 {
-  this->init();
+  this->initCopiedApp();
 
   ui->setupUi(this);
 
@@ -70,15 +70,16 @@ MainWindow::~MainWindow()
   delete ui;
 }
 
-bool MainWindow::init()
+bool MainWindow::initCopiedApp()
 {
-  QString appFileName = QFileInfo(QCoreApplication::applicationFilePath()).fileName();
-  const auto &nameArr = appFileName.split('.');
+  const auto &appInfo = QFileInfo(QCoreApplication::applicationFilePath());
+  char delm = '.';
+  const auto &appFileNameArr = appInfo.fileName().split(delm);
 
   bool isCopied = false;
-  if (nameArr.size() > 1)
+  if (appFileNameArr.size() > 1)
   {
-    if ((nameArr.at(nameArr.size()-1).toStdString() == constants::appCopiedExt))
+    if (appFileNameArr.at(appFileNameArr.size()-1).toStdString() == constants::appCopiedExt)
     {
       isCopied = true;
     }
@@ -89,14 +90,20 @@ bool MainWindow::init()
     return true;
   }
 
+  auto appCopiedFileNameArr = appFileNameArr;
+  appCopiedFileNameArr[appCopiedFileNameArr.size() - 1] = QString(constants::appCopiedExt.c_str());
+  QString appCopiedFileName = appFileNameArr.join(delm);
+  qDebug() << appCopiedFileName;
+
+  // Make copy File
   QProcess process;
   qint64 pid;
-//  process.startDetached("Q.bin", {""}, "", &pid);
+  process.startDetached(
+        appCopiedFileName
+        , {""}, "", &pid
+        );
 
-//  this->window()->close();
-//  this->close();
-
-//  exit(0);
+  exit(0);
 
   return true;
 }
