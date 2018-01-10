@@ -8,7 +8,6 @@
 
 #include <Windows.h>
 
-extern const std::vector<std::string> g_gameClassNames;
 
 namespace Ui {
 class MainWindow;
@@ -23,7 +22,8 @@ class MainWindow : public QMainWindow
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-  public:
+  private:
+    bool init();
     bool initGamesProcess();
 
   private:

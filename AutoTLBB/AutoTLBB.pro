@@ -28,10 +28,12 @@ LIBS += -lUser32 -lPsapi
 
 SOURCES += \
         main.cpp \
-        MainWindow.cpp
+        MainWindow.cpp \
+    Constants.cpp
 
 HEADERS += \
-        MainWindow.hpp
+        MainWindow.hpp \
+    Constants.hpp
 
 FORMS += \
         MainWindow.ui

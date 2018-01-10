@@ -4,21 +4,22 @@
 #include <QMessageBox>
 #include <QFile>
 #include <QDebug>
+#include <QProcess>
+#include <QFileInfo>
 
 #include <cstring>
 
 #include <tchar.h>
 #include <psapi.h>
 
-const std::vector<std::string> g_gameClassNames{
-  "TianLongBaBu WndClass"
-};
-
+#include "Constants.hpp"
 
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::MainWindow)
 {
+  this->init();
+
   ui->setupUi(this);
 
   this->setMinimumSize(this->size());
@@ -69,6 +70,37 @@ MainWindow::~MainWindow()
   delete ui;
 }
 
+bool MainWindow::init()
+{
+  QString appFileName = QFileInfo(QCoreApplication::applicationFilePath()).fileName();
+  const auto &nameArr = appFileName.split('.');
+
+  bool isCopied = false;
+  if (nameArr.size() > 1)
+  {
+    if ((nameArr.at(nameArr.size()-1).toStdString() == constants::appCopiedExt))
+    {
+      isCopied = true;
+    }
+  }
+
+  if (isCopied)
+  {
+    return true;
+  }
+
+  QProcess process;
+  qint64 pid;
+//  process.startDetached("Q.bin", {""}, "", &pid);
+
+//  this->window()->close();
+//  this->close();
+
+//  exit(0);
+
+  return true;
+}
+
 static BOOL CALLBACK EnumWindowsProcCallback(HWND hwnd, LPARAM lParam)
 {
   char className[MAX_PATH];
@@ -76,7 +108,7 @@ static BOOL CALLBACK EnumWindowsProcCallback(HWND hwnd, LPARAM lParam)
 
   auto gamesProcess = reinterpret_cast<std::vector<HWND>*>(lParam);
 
-  for (const auto& name : g_gameClassNames)
+  for (const auto& name : constants::gameClassNames)
   {
     if (std::strcmp(className, name.c_str()) == 0)
     {
