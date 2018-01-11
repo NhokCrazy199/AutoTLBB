@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="26">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Name"</Description>
+      <LastState RealAddress="735ECC7C"/>
+      <VariableType>String</VariableType>
+      <Length>20</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>Game.exe+105EB34</Address>
+      <Offsets>
+        <Offset>3C</Offset>
+        <Offset>04</Offset>
+        <Offset>1ec</Offset>
+        <Offset>0c</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>28</ID>
+      <Description>"Coordinate X"</Description>
+      <LastState Value="254.3134766" RealAddress="7FCF021C"/>
+      <VariableType>Float</VariableType>
+      <Address>Game.exe+105EA78</Address>
+      <Offsets>
+        <Offset>5C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>29</ID>
+      <Description>"Coordinate Y"</Description>
+      <LastState Value="127.0223923" RealAddress="7FCF0224"/>
+      <VariableType>Float</VariableType>
+      <Address>Game.exe+105EA78</Address>
+      <Offsets>
+        <Offset>64</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>43</ID>
+      <Description>"Menpai"</Description>
+      <LastState Value="2" RealAddress="735ECD34"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>Game.exe+105EB34</Address>
+      <Offsets>
+        <Offset>F4</Offset>
+        <Offset>04</Offset>
+        <Offset>1ec</Offset>
+        <Offset>0c</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>47</ID>
+      <Description>"Base Map"</Description>
+      <LastState Value="2" RealAddress="00A8F060"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>Game.exe+68F060</Address>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
