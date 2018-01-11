@@ -6,7 +6,9 @@
 int main(int argc, char *argv[])
 {
   QApplication a(argc, argv);
+#ifndef QT_DEBUG
   (new InitCopyApp());
+#endif
   MainWindow w;
   w.show();
 

@@ -5,6 +5,9 @@
 #include <QProcess>
 #include <QString>
 #include <QFile>
+#include <QDir>
+
+#include <QDebug>
 
 #include "Constants.hpp"
 
@@ -13,7 +16,16 @@ InitCopyApp::InitCopyApp() :
   m_fileNameDelm('.'),
   m_appCopiedFileExt("bin")
 {
-  if (!this->isCopied())
+  qDebug() << m_pAppFileInfo.absoluteDir();
+  qDebug() << m_pAppFileInfo.absoluteFilePath();
+  qDebug() << QCoreApplication::applicationDirPath();
+
+  if (this->isCopyApp())
+  {
+    return;
+  }
+
+  if (this->createCopyApp())
   {
     // Make copy File
     QProcess process;
@@ -22,32 +34,35 @@ InitCopyApp::InitCopyApp() :
     process.startDetached(
           this->getCopyAppFileName(),
           QCoreApplication::arguments(),
-          m_pAppFileInfo.filePath(),
+          QDir::currentPath(),
           &pid
           );
 
-//    exit(0);
+    exit(0);
   }
 
   delete this;
 }
 
-bool InitCopyApp::isCopied()
+bool InitCopyApp::isCopyApp()
 {
-  bool isCopied = false;
+  bool isCopyApp = false;
+
   if (this->getAppFileNameArray().size() > 1)
   {
     if (*(this->getAppFileNameArray().cend() - 1) == m_appCopiedFileExt)
     {
-      isCopied = true;
+      isCopyApp = true;
     }
   }
 
-  return isCopied;
+  return isCopyApp;
 }
 
 bool InitCopyApp::createCopyApp()
 {
+  QFile appFile(QCoreApplication::applicationFilePath());
+  appFile.copy(this->getCopyAppFilePath());
 
   return true;
 }
@@ -57,6 +72,16 @@ const QString& InitCopyApp::getAppFileName() const
   static const auto &appFileName = m_pAppFileInfo.fileName();
 
   return appFileName;
+}
+
+QString InitCopyApp::getCopyAppFilePath() const
+{
+  static auto copyAppFileInfo = m_pAppFileInfo;
+  copyAppFileInfo.setFile(copyAppFileInfo.path(), this->getCopyAppFileName());
+
+  qDebug() << copyAppFileInfo.filePath();
+
+  return copyAppFileInfo.filePath();
 }
 
 const QStringList& InitCopyApp::getAppFileNameArray() const
