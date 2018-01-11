@@ -25,17 +25,22 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # Libraries
 LIBS += -lUser32 -lPsapi
 
+CONFIG(release, debug|release) {
+SOURCES += \
+    InitCopyApp.cpp
+
+HEADERS += \
+    InitCopyApp.hpp
+}
 
 SOURCES += \
         main.cpp \
         MainWindow.cpp \
-    Constants.cpp \
-    InitCopyApp.cpp
+    Constants.cpp
 
 HEADERS += \
         MainWindow.hpp \
-    Constants.hpp \
-    InitCopyApp.hpp
+    Constants.hpp
 
 FORMS += \
         MainWindow.ui

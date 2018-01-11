@@ -32,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->gameListTableWidget->setRowCount(m_gamesProcess.size());
     for (std::size_t i = 0; i < m_gamesProcess.size(); i++)
     {
+      ::SetWindowText(m_gamesProcess.at(i), _TEXT("HAHAH" + i));
+
       auto no = new QTableWidgetItem("111111");
       ui->gameListTableWidget->setItem(i, 1, no);
 
