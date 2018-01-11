@@ -13,6 +13,13 @@ namespace Ui {
 class MainWindow;
 }
 
+struct GameWindowInfo
+{
+    HWND hwnd;
+    HANDLE handle;
+    DWORD pId;
+};
+
 class MainWindow : public QMainWindow
 {
   public:
@@ -27,7 +34,7 @@ class MainWindow : public QMainWindow
 
   private:
     Ui::MainWindow *ui;
-    std::vector<HWND> m_gamesProcess;
+    std::vector<GameWindowInfo> m_gamesProcess;
 };
 
 #endif // MAINWINDOW_HPP

@@ -32,7 +32,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->gameListTableWidget->setRowCount(m_gamesProcess.size());
     for (std::size_t i = 0; i < m_gamesProcess.size(); i++)
     {
-      ::SetWindowText(m_gamesProcess.at(i), TEXT("HAHAH" + i));
+      ::SetWindowText(m_gamesProcess.at(i).hwnd, TEXT("Test TLBB Change Win Title"));
+
+//      char *p = 0x68F060;
+
+//      char v = *p;
+//      qDebug() << v;
 
       auto no = new QTableWidgetItem("111111");
       ui->gameListTableWidget->setItem(i, 1, no);
@@ -72,13 +77,15 @@ static BOOL CALLBACK EnumWindowsProcCallback(HWND hwnd, LPARAM lParam)
   TCHAR className[MAX_PATH];
   ::GetClassName(hwnd, className, sizeof(className));
 
-  auto gamesProcess = reinterpret_cast<std::vector<HWND>*>(lParam);
+  auto gamesProcess = reinterpret_cast<std::vector<GameWindowInfo>*>(lParam);
 
   for (const auto& name : constants::gameClassNames)
   {
     if (::_tcscmp(className, name) == 0)
     {
-      gamesProcess->push_back(hwnd);
+      GameWindowInfo gameWindowInfo;
+      gameWindowInfo.hwnd = hwnd;
+      gamesProcess->push_back(gameWindowInfo);
     }
   }
 
