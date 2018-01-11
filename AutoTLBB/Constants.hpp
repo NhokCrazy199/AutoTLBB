@@ -1,7 +1,6 @@
 #ifndef CONSTANTS_HPP
 #define CONSTANTS_HPP
 
-#include <string>
 #include <vector>
 
 #include <tchar.h>

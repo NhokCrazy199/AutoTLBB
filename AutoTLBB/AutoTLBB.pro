@@ -26,21 +26,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 LIBS += -lUser32 -lPsapi
 
 CONFIG(release, debug|release) {
-SOURCES += \
-    InitCopyApp.cpp
+  CONFIG  += qt warn_off release
+  DEFINES += QT_NO_DEBUG_OUTPUT
+  DEFINES += QT_NO_DEBUG
 
-HEADERS += \
-    InitCopyApp.hpp
+  SOURCES += \
+        InitCopyApp.cpp
+
+  HEADERS += \
+        InitCopyApp.hpp
 }
 
 SOURCES += \
         main.cpp \
         MainWindow.cpp \
-    Constants.cpp
+        Constants.cpp
 
 HEADERS += \
         MainWindow.hpp \
-    Constants.hpp
+        Constants.hpp
 
 FORMS += \
         MainWindow.ui
