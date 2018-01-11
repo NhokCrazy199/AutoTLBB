@@ -7,45 +7,75 @@
 
 #include "Constants.hpp"
 
-InitCopyApp::InitCopyApp()
+InitCopyApp::InitCopyApp() :
+  m_pAppFileInfo(QFileInfo(QCoreApplication::applicationFilePath())),
+  m_fileNameDelm('.'),
+  m_appCopiedFileExt("bin")
 {
-  const auto &appInfo = QFileInfo(QCoreApplication::applicationFilePath());
-  char delm = '.';
-  const auto &appFileNameArr = appInfo.fileName().split(delm);
-
-  bool isCopied = false;
-  if (appFileNameArr.size() > 1)
+  if (!this->isCopied())
   {
-    if (appFileNameArr.at(appFileNameArr.size()-1).toStdString() == constants::appCopiedExt)
+    // Make copy File
+    QProcess process;
+    qint64 pid;
+
+    process.startDetached(
+          this->getCopyAppFileNameArray().join(m_fileNameDelm),
+          QCoreApplication::arguments(),
+          m_pAppFileInfo.filePath(),
+          &pid
+          );
+
+    exit(0);
+  }
+
+  delete this;
+}
+
+bool InitCopyApp::isCopied()
+{
+  bool isCopied = false;
+  if (this->getAppFileNameArray().size() > 1)
+  {
+    if (this->getAppFileNameArray().at(this->getAppFileNameArray().size()-1) == m_appCopiedFileExt)
     {
       isCopied = true;
     }
   }
 
-  if (isCopied)
-  {
-    return;
-  }
-
-  auto appCopiedFileNameArr = appFileNameArr;
-  appCopiedFileNameArr[appCopiedFileNameArr.size() - 1] = QString(constants::appCopiedExt.c_str());
-  QString appCopiedFileName = appCopiedFileNameArr.join(delm);
-
-  // Make copy File
-  QProcess process;
-  qint64 pid;
-
-  process.startDetached(
-    appCopiedFileName,
-    QCoreApplication::arguments(),
-    appInfo.filePath(),
-    &pid
-    );
-
-  //  exit(0);
+  return isCopied;
 }
 
-bool InitCopyApp::init()
+bool InitCopyApp::createCopyApp()
 {
 
+  return true;
+}
+
+const QString& InitCopyApp::getAppFileName() const
+{
+  static const auto &appFileName = m_pAppFileInfo.fileName();
+
+  return appFileName;
+}
+
+const QStringList& InitCopyApp::getAppFileNameArray() const
+{
+  static const auto &appFileNameArr = this->getAppFileName().split(m_fileNameDelm);
+
+  return appFileNameArr;
+}
+
+const QString& InitCopyApp::getCopyAppFileName() const
+{
+  static const auto &copyAppFileName = this->getCopyAppFileNameArray().join(m_fileNameDelm);
+
+  return copyAppFileName;
+}
+
+const QStringList& InitCopyApp::getCopyAppFileNameArray() const
+{
+  static auto appCopiedFileNameArr = this->getAppFileNameArray();
+  appCopiedFileNameArr[appCopiedFileNameArr.size() - 1] = m_appCopiedFileExt;
+
+  return appCopiedFileNameArr;
 }

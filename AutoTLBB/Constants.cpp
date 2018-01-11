@@ -5,5 +5,4 @@ namespace constants {
     "TianLongBaBu WndClass"
   };
 
-  const std::string appCopiedExt = "bin";
 }
