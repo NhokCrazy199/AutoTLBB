@@ -3,6 +3,7 @@
 #include <QApplication>
 #include <QFileInfo>
 #include <QProcess>
+#include <QString>
 #include <QFile>
 
 #include "Constants.hpp"
@@ -19,13 +20,13 @@ InitCopyApp::InitCopyApp() :
     qint64 pid;
 
     process.startDetached(
-          this->getCopyAppFileNameArray().join(m_fileNameDelm),
+          this->getCopyAppFileName(),
           QCoreApplication::arguments(),
           m_pAppFileInfo.filePath(),
           &pid
           );
 
-    exit(0);
+//    exit(0);
   }
 
   delete this;
@@ -36,7 +37,7 @@ bool InitCopyApp::isCopied()
   bool isCopied = false;
   if (this->getAppFileNameArray().size() > 1)
   {
-    if (this->getAppFileNameArray().at(this->getAppFileNameArray().size()-1) == m_appCopiedFileExt)
+    if (*(this->getAppFileNameArray().cend() - 1) == m_appCopiedFileExt)
     {
       isCopied = true;
     }
@@ -75,7 +76,7 @@ const QString& InitCopyApp::getCopyAppFileName() const
 const QStringList& InitCopyApp::getCopyAppFileNameArray() const
 {
   static auto appCopiedFileNameArr = this->getAppFileNameArray();
-  appCopiedFileNameArr[appCopiedFileNameArr.size() - 1] = m_appCopiedFileExt;
+  *(appCopiedFileNameArr.end() - 1) = m_appCopiedFileExt;
 
   return appCopiedFileNameArr;
 }

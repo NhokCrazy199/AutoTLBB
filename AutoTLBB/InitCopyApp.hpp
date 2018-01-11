@@ -1,11 +1,10 @@
 #ifndef INITCOPYAPP_HPP
 #define INITCOPYAPP_HPP
 
-#include <QString>
-
 class QFileInfo;
 class QApplication;
 class QStringList;
+class QString;
 
 class InitCopyApp
 {
@@ -25,7 +24,7 @@ class InitCopyApp
   private:
     const QFileInfo &m_pAppFileInfo;
     const char m_fileNameDelm;
-    const QString m_appCopiedFileExt;
+    const QString &m_appCopiedFileExt;
 };
 
 #endif // INITCOPYAPP_HPP
