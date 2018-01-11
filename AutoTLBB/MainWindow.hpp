@@ -23,7 +23,6 @@ class MainWindow : public QMainWindow
     ~MainWindow();
 
   private:
-    bool initCopiedApp();
     bool initGamesProcess();
 
   private:

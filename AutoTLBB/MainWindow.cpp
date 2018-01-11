@@ -4,8 +4,6 @@
 #include <QMessageBox>
 #include <QFile>
 #include <QDebug>
-#include <QProcess>
-#include <QFileInfo>
 
 #include <cstring>
 
@@ -18,8 +16,6 @@ MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::MainWindow)
 {
-  this->initCopiedApp();
-
   ui->setupUi(this);
 
   this->setMinimumSize(this->size());
@@ -68,45 +64,6 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
   delete ui;
-}
-
-bool MainWindow::initCopiedApp()
-{
-  const auto &appInfo = QFileInfo(QCoreApplication::applicationFilePath());
-  char delm = '.';
-  const auto &appFileNameArr = appInfo.fileName().split(delm);
-
-  bool isCopied = false;
-  if (appFileNameArr.size() > 1)
-  {
-    if (appFileNameArr.at(appFileNameArr.size()-1).toStdString() == constants::appCopiedExt)
-    {
-      isCopied = true;
-    }
-  }
-
-  if (isCopied)
-  {
-    return true;
-  }
-
-  auto appCopiedFileNameArr = appFileNameArr;
-  appCopiedFileNameArr[appCopiedFileNameArr.size() - 1] = QString(constants::appCopiedExt.c_str());
-  QString appCopiedFileName = appCopiedFileNameArr.join(delm);
-
-  // Make copy File
-  QProcess process;
-  qint64 pid;
-  process.startDetached(
-        appCopiedFileName
-        , {""}, "", &pid
-        );
-
-  this->window()->close();
-  this->close();
-  exit(0);
-
-  return true;
 }
 
 static BOOL CALLBACK EnumWindowsProcCallback(HWND hwnd, LPARAM lParam)
