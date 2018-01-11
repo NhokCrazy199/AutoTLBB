@@ -1,8 +1,7 @@
 #include "Constants.hpp"
 
 namespace constants {
-  const std::vector<std::string> gameClassNames{
-    "TianLongBaBu WndClass"
+  const std::vector<TCHAR*> gameClassNames{
+    _TEXT("TianLongBaBu WndClass")
   };
-
 }

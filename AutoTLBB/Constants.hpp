@@ -4,8 +4,10 @@
 #include <string>
 #include <vector>
 
+#include <tchar.h>
+
 namespace constants {
-  extern const std::vector<std::string> gameClassNames;
+  extern const std::vector<TCHAR*> gameClassNames;
 }
 
 #endif // CONSTANTS_HPP

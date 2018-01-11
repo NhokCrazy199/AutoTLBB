@@ -27,7 +27,6 @@ MainWindow::MainWindow(QWidget *parent) :
   styleSheet.close();
 
   // TODO
-  m_gamesProcess.push_back(nullptr);
   if (this->initGamesProcess())
   {
     ui->gameListTableWidget->setRowCount(m_gamesProcess.size());
@@ -68,14 +67,14 @@ MainWindow::~MainWindow()
 
 static BOOL CALLBACK EnumWindowsProcCallback(HWND hwnd, LPARAM lParam)
 {
-  char className[MAX_PATH];
-  ::GetClassNameA(hwnd, className, sizeof(className));
+  TCHAR className[MAX_PATH];
+  ::GetClassName(hwnd, className, sizeof(className));
 
   auto gamesProcess = reinterpret_cast<std::vector<HWND>*>(lParam);
 
   for (const auto& name : constants::gameClassNames)
   {
-    if (std::strcmp(className, name.c_str()) == 0)
+    if (::_tcscmp(className, name) == 0)
     {
       gamesProcess->push_back(hwnd);
     }
