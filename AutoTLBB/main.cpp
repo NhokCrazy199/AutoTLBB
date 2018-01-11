@@ -1,14 +1,18 @@
 #include "MainWindow.hpp"
 #include <QApplication>
 
-#include "InitCopyApp.hpp"
+#ifndef QT_DEBUG
+#  include "InitCopyApp.hpp"
+#endif
 
 int main(int argc, char *argv[])
 {
   QApplication a(argc, argv);
+
 #ifndef QT_DEBUG
   (new InitCopyApp());
 #endif
+
   MainWindow w;
   w.show();
 
