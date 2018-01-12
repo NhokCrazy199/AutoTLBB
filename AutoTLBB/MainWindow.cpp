@@ -70,6 +70,11 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
   delete ui;
+
+  for (const auto& gameWindowInfo : m_gamesWindowInfo)
+  {
+    delete gameWindowInfo;
+  }
 }
 
 static BOOL CALLBACK EnumWindowsProcCallback(HWND hwnd, LPARAM lParam)
@@ -79,14 +84,28 @@ static BOOL CALLBACK EnumWindowsProcCallback(HWND hwnd, LPARAM lParam)
 
   auto gamesProcess = reinterpret_cast<ListGameWindowInfo*>(lParam);
 
+  DWORD processId;
+  HANDLE handle = nullptr;
   for (const auto& name : constants::gameClassNames)
   {
-    if (::_tcscmp(className, name) == 0)
+    if (::_tcscmp(className, name) != 0)
     {
-      auto gameWindowInfo = new GameWindowInfo();
-      gameWindowInfo->setHwnd(hwnd);
-      gamesProcess->push_back(gameWindowInfo);
+      continue;
     }
+
+    ::GetWindowThreadProcessId(hwnd, &processId);
+    handle = ::OpenProcess(PROCESS_ALL_ACCESS, false, processId);
+    if (handle == nullptr)
+    {
+      qDebug() << "Can not open game";
+    }
+
+    auto gameWindowInfo = new GameWindowInfo();
+    gameWindowInfo->setHwnd(hwnd);
+    gameWindowInfo->setProcessId(processId);
+    gameWindowInfo->setHandle(handle);
+
+    gamesProcess->push_back(gameWindowInfo);
   }
 
   return TRUE;
