@@ -11,6 +11,7 @@
 #include <psapi.h>
 
 #include "Constants.hpp"
+#include "Player.hpp"
 
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
@@ -35,11 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
       auto gameWindowInfo = m_gamesWindowInfo.at(i);
       ::SetWindowText(gameWindowInfo->getHwnd(), TEXT("Test TLBB Change Win Title"));
 
-      int mapId;
-      DWORD address = 0x0068F060;
-//      DWORD address = 0x00A8F060;
-      ::ReadProcessMemory(gameWindowInfo->getHandle(), static_cast<void*>(&address), &mapId, sizeof(mapId), 0);
-      qDebug() << "Map: " << mapId;
+      qDebug() << gameWindowInfo->getPlayer()->getCurrentMapId();
 
       auto no = new QTableWidgetItem("111111");
       ui->gameListTableWidget->setItem(i, 1, no);

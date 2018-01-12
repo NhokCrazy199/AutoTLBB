@@ -41,12 +41,14 @@ SOURCES += \
         main.cpp \
         MainWindow.cpp \
         Constants.cpp \
-    GameWindowInfo.cpp
+    GameWindowInfo.cpp \
+    Player.cpp
 
 HEADERS += \
         MainWindow.hpp \
         Constants.hpp \
-    GameWindowInfo.hpp
+    GameWindowInfo.hpp \
+    Player.hpp
 
 FORMS += \
         MainWindow.ui
