@@ -32,12 +32,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->gameListTableWidget->setRowCount(m_gamesWindowInfo.size());
     for (std::size_t i = 0; i < m_gamesWindowInfo.size(); i++)
     {
-      ::SetWindowText(m_gamesWindowInfo.at(i)->getHwnd(), TEXT("Test TLBB Change Win Title"));
+      auto gameWindowInfo = m_gamesWindowInfo.at(i);
+      ::SetWindowText(gameWindowInfo->getHwnd(), TEXT("Test TLBB Change Win Title"));
 
-//      char *p = 0x68F060;
-
-//      char v = *p;
-//      qDebug() << v;
+      int mapId;
+      DWORD address = 0x0068F060;
+//      DWORD address = 0x00A8F060;
+      ::ReadProcessMemory(gameWindowInfo->getHandle(), static_cast<void*>(&address), &mapId, sizeof(mapId), 0);
+      qDebug() << "Map: " << mapId;
 
       auto no = new QTableWidgetItem("111111");
       ui->gameListTableWidget->setItem(i, 1, no);
@@ -82,7 +84,7 @@ static BOOL CALLBACK EnumWindowsProcCallback(HWND hwnd, LPARAM lParam)
   TCHAR className[MAX_PATH];
   ::GetClassName(hwnd, className, sizeof(className));
 
-  auto gamesProcess = reinterpret_cast<ListGameWindowInfo*>(lParam);
+  auto gamesWindowInfo = reinterpret_cast<ListGameWindowInfo*>(lParam);
 
   DWORD processId;
   HANDLE handle = nullptr;
@@ -94,7 +96,7 @@ static BOOL CALLBACK EnumWindowsProcCallback(HWND hwnd, LPARAM lParam)
     }
 
     ::GetWindowThreadProcessId(hwnd, &processId);
-    handle = ::OpenProcess(PROCESS_ALL_ACCESS, false, processId);
+    handle = ::OpenProcess(READ_CONTROL | PROCESS_ALL_ACCESS | PROCESS_VM_READ, FALSE, processId);
     if (handle == nullptr)
     {
       qDebug() << "Can not open game";
@@ -105,7 +107,9 @@ static BOOL CALLBACK EnumWindowsProcCallback(HWND hwnd, LPARAM lParam)
     gameWindowInfo->setProcessId(processId);
     gameWindowInfo->setHandle(handle);
 
-    gamesProcess->push_back(gameWindowInfo);
+    qDebug() << *gameWindowInfo;
+
+    gamesWindowInfo->push_back(gameWindowInfo);
   }
 
   return TRUE;

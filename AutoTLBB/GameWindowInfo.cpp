@@ -6,6 +6,19 @@ GameWindowInfo::GameWindowInfo()
   m_handle = nullptr;
 }
 
+GameWindowInfo::~GameWindowInfo()
+{
+}
+
+QDebug operator<<(QDebug qdb, const GameWindowInfo& gameWindowInfo)
+{
+  qdb << "Hwnd:";
+  qdb << gameWindowInfo.m_hwnd;
+  qdb << "Process Id:";
+  qdb << gameWindowInfo.m_processId;
+  return qdb;
+}
+
 void GameWindowInfo::setHwnd(const HWND hwnd)
 {
   m_hwnd = hwnd;
