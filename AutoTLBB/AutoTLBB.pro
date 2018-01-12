@@ -40,11 +40,13 @@ CONFIG(release, debug|release) {
 SOURCES += \
         main.cpp \
         MainWindow.cpp \
-        Constants.cpp
+        Constants.cpp \
+    GameWindowInfo.cpp
 
 HEADERS += \
         MainWindow.hpp \
-        Constants.hpp
+        Constants.hpp \
+    GameWindowInfo.hpp
 
 FORMS += \
         MainWindow.ui

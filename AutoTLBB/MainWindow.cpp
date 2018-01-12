@@ -29,10 +29,10 @@ MainWindow::MainWindow(QWidget *parent) :
   // TODO
   if (this->initGamesProcess())
   {
-    ui->gameListTableWidget->setRowCount(m_gamesProcess.size());
-    for (std::size_t i = 0; i < m_gamesProcess.size(); i++)
+    ui->gameListTableWidget->setRowCount(m_gamesWindowInfo.size());
+    for (std::size_t i = 0; i < m_gamesWindowInfo.size(); i++)
     {
-      ::SetWindowText(m_gamesProcess.at(i).hwnd, TEXT("Test TLBB Change Win Title"));
+      ::SetWindowText(m_gamesWindowInfo.at(i)->getHwnd(), TEXT("Test TLBB Change Win Title"));
 
 //      char *p = 0x68F060;
 
@@ -77,14 +77,14 @@ static BOOL CALLBACK EnumWindowsProcCallback(HWND hwnd, LPARAM lParam)
   TCHAR className[MAX_PATH];
   ::GetClassName(hwnd, className, sizeof(className));
 
-  auto gamesProcess = reinterpret_cast<std::vector<GameWindowInfo>*>(lParam);
+  auto gamesProcess = reinterpret_cast<ListGameWindowInfo*>(lParam);
 
   for (const auto& name : constants::gameClassNames)
   {
     if (::_tcscmp(className, name) == 0)
     {
-      GameWindowInfo gameWindowInfo;
-      gameWindowInfo.hwnd = hwnd;
+      auto gameWindowInfo = new GameWindowInfo();
+      gameWindowInfo->setHwnd(hwnd);
       gamesProcess->push_back(gameWindowInfo);
     }
   }
@@ -94,7 +94,7 @@ static BOOL CALLBACK EnumWindowsProcCallback(HWND hwnd, LPARAM lParam)
 
 bool MainWindow::initGamesProcess()
 {
-  ::EnumWindows(&EnumWindowsProcCallback, reinterpret_cast<LPARAM>(&m_gamesProcess));
+  ::EnumWindows(&EnumWindowsProcCallback, reinterpret_cast<LPARAM>(&m_gamesWindowInfo));
 
-  return !m_gamesProcess.empty();
+  return !m_gamesWindowInfo.empty();
 }

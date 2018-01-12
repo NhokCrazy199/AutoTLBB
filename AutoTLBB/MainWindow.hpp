@@ -3,22 +3,17 @@
 
 #include <QMainWindow>
 
-#include <string>
 #include <vector>
 
-#include <Windows.h>
+#include "GameWindowInfo.hpp"
 
+#include <Windows.h>
 
 namespace Ui {
 class MainWindow;
 }
 
-struct GameWindowInfo
-{
-    HWND hwnd;
-    HANDLE handle;
-    DWORD pId;
-};
+typedef std::vector<GameWindowInfo*> ListGameWindowInfo;
 
 class MainWindow : public QMainWindow
 {
@@ -34,7 +29,7 @@ class MainWindow : public QMainWindow
 
   private:
     Ui::MainWindow *ui;
-    std::vector<GameWindowInfo> m_gamesProcess;
+    ListGameWindowInfo m_gamesWindowInfo;
 };
 
 #endif // MAINWINDOW_HPP
