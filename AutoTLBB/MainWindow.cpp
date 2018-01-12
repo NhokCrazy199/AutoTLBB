@@ -36,7 +36,9 @@ MainWindow::MainWindow(QWidget *parent) :
       auto gameWindowInfo = m_gamesWindowInfo.at(i);
       ::SetWindowText(gameWindowInfo->getHwnd(), TEXT("Test TLBB Change Win Title"));
 
-      qDebug() << gameWindowInfo->getPlayer()->getCurrentMapId();
+      auto player = gameWindowInfo->getPlayer();
+
+      qDebug() << *player;
 
       auto no = new QTableWidgetItem("111111");
       ui->gameListTableWidget->setItem(i, 1, no);

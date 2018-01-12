@@ -31,10 +31,24 @@ class GameWindowInfo
       ::ReadProcessMemory(
             this->m_handle,
             reinterpret_cast<LPVOID>(address),
-            &value, sizeof(value), nullptr
+            &value, sizeof(T), nullptr
             );
 
       return value;
+    }
+
+    template<typename T>
+    T readMemory(const std::vector<DWORD>& adrs) const
+    {
+      qDebug() << "CALLED";
+
+      DWORD nextOffset = *adrs.cbegin();
+      for (std::size_t i = 0; i < adrs.size() - 1; i++)
+      {
+        nextOffset = this->readMemory<DWORD>(nextOffset) + adrs.at(i+1);
+      }
+
+      return this->readMemory<T>(nextOffset);
     }
 
   private:
@@ -46,7 +60,5 @@ class GameWindowInfo
   private:
     friend QDebug operator<<(QDebug qdb, const GameWindowInfo& gameWindowInfo);
 };
-
-QDebug operator<<(QDebug qdb, const GameWindowInfo& gameWindowInfo);
 
 #endif // GAMEWINDOWINFO_HPP
