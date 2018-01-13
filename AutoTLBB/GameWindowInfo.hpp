@@ -28,11 +28,15 @@ class GameWindowInfo
     {
       T value;
 
-      ::ReadProcessMemory(
+      auto r = ::ReadProcessMemory(
             this->m_handle,
             reinterpret_cast<LPVOID>(address),
             &value, sizeof(T), nullptr
             );
+      if (!r)
+      {
+        qDebug() << "Can not read memory";
+      }
 
       return value;
     }
@@ -40,12 +44,10 @@ class GameWindowInfo
     template<typename T>
     T readMemory(const std::vector<DWORD>& adrs) const
     {
-      qDebug() << "CALLED";
-
       DWORD nextOffset = *adrs.cbegin();
-      for (std::size_t i = 0; i < adrs.size() - 1; i++)
+      for (std::size_t i = 1; i < adrs.size(); i++)
       {
-        nextOffset = this->readMemory<DWORD>(nextOffset) + adrs.at(i+1);
+        nextOffset = this->readMemory<DWORD>(nextOffset) + adrs.at(i);
       }
 
       return this->readMemory<T>(nextOffset);

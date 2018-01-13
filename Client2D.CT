@@ -2,61 +2,16 @@
 <CheatTable CheatEngineTableVersion="26">
   <CheatEntries>
     <CheatEntry>
-      <ID>4</ID>
-      <Description>"CurentHp"</Description>
-      <LastState Value="298848" RealAddress="6D795AA0"/>
+      <ID>47</ID>
+      <Description>"Base Map"</Description>
+      <LastState Value="0" RealAddress="00A8F060"/>
       <VariableType>4 Bytes</VariableType>
-      <Address>Game.exe+105EB34</Address>
-      <Offsets>
-        <Offset>0x2760</Offset>
-        <Offset>04</Offset>
-        <Offset>1ec</Offset>
-        <Offset>0c</Offset>
-      </Offsets>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>50</ID>
-      <Description>"CurentMp"</Description>
-      <LastState Value="52675" RealAddress="6D795AA4"/>
-      <VariableType>4 Bytes</VariableType>
-      <Address>Game.exe+105EB34</Address>
-      <Offsets>
-        <Offset>0x2764</Offset>
-        <Offset>04</Offset>
-        <Offset>1ec</Offset>
-        <Offset>0c</Offset>
-      </Offsets>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>51</ID>
-      <Description>"MAXHp"</Description>
-      <LastState Value="318454" RealAddress="6D795B18"/>
-      <VariableType>4 Bytes</VariableType>
-      <Address>Game.exe+105EB34</Address>
-      <Offsets>
-        <Offset>0x27d8</Offset>
-        <Offset>04</Offset>
-        <Offset>1ec</Offset>
-        <Offset>0c</Offset>
-      </Offsets>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>49</ID>
-      <Description>"MAXMp"</Description>
-      <LastState Value="59019" RealAddress="6D795B1C"/>
-      <VariableType>4 Bytes</VariableType>
-      <Address>Game.exe+105EB34</Address>
-      <Offsets>
-        <Offset>0x27DC</Offset>
-        <Offset>04</Offset>
-        <Offset>1ec</Offset>
-        <Offset>0c</Offset>
-      </Offsets>
+      <Address>Game.exe+68F060</Address>
     </CheatEntry>
     <CheatEntry>
       <ID>48</ID>
       <Description>"Name"</Description>
-      <LastState RealAddress="6D79337C"/>
+      <LastState RealAddress="6181997C"/>
       <VariableType>String</VariableType>
       <Length>20</Length>
       <Unicode>0</Unicode>
@@ -65,15 +20,80 @@
       <Address>Game.exe+105EB34</Address>
       <Offsets>
         <Offset>3C</Offset>
-        <Offset>04</Offset>
-        <Offset>1ec</Offset>
-        <Offset>0c</Offset>
+        <Offset>4</Offset>
+        <Offset>1EC</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>43</ID>
+      <Description>"Menpai"</Description>
+      <LastState Value="2" RealAddress="61819A34"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>Game.exe+105EB34</Address>
+      <Offsets>
+        <Offset>F4</Offset>
+        <Offset>4</Offset>
+        <Offset>1EC</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"CurentHp"</Description>
+      <LastState Value="74132" RealAddress="6181C0A0"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>Game.exe+105EB34</Address>
+      <Offsets>
+        <Offset>2760</Offset>
+        <Offset>4</Offset>
+        <Offset>1EC</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>50</ID>
+      <Description>"CurentMp"</Description>
+      <LastState Value="8363" RealAddress="6181C0A4"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>Game.exe+105EB34</Address>
+      <Offsets>
+        <Offset>2764</Offset>
+        <Offset>4</Offset>
+        <Offset>1EC</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>51</ID>
+      <Description>"MAXHp"</Description>
+      <LastState Value="83001" RealAddress="6181C118"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>Game.exe+105EB34</Address>
+      <Offsets>
+        <Offset>27D8</Offset>
+        <Offset>4</Offset>
+        <Offset>1EC</Offset>
+        <Offset>C</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>49</ID>
+      <Description>"MAXMp"</Description>
+      <LastState Value="9383" RealAddress="6181C11C"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>Game.exe+105EB34</Address>
+      <Offsets>
+        <Offset>27DC</Offset>
+        <Offset>4</Offset>
+        <Offset>1EC</Offset>
+        <Offset>C</Offset>
       </Offsets>
     </CheatEntry>
     <CheatEntry>
       <ID>28</ID>
       <Description>"Coordinate X"</Description>
-      <LastState Value="160.8367462" RealAddress="7ED7021C"/>
+      <LastState Value="280.3278809" RealAddress="7FCF021C"/>
       <VariableType>Float</VariableType>
       <Address>Game.exe+105EA78</Address>
       <Offsets>
@@ -83,33 +103,14 @@
     <CheatEntry>
       <ID>29</ID>
       <Description>"Coordinate Y"</Description>
-      <LastState Value="143.4102478" RealAddress="7ED70224"/>
+      <LastState Value="299.3448181" RealAddress="7FCF0224"/>
       <VariableType>Float</VariableType>
       <Address>Game.exe+105EA78</Address>
       <Offsets>
         <Offset>64</Offset>
       </Offsets>
     </CheatEntry>
-    <CheatEntry>
-      <ID>43</ID>
-      <Description>"Menpai"</Description>
-      <LastState Value="4" RealAddress="6D793434"/>
-      <VariableType>4 Bytes</VariableType>
-      <Address>Game.exe+105EB34</Address>
-      <Offsets>
-        <Offset>F4</Offset>
-        <Offset>04</Offset>
-        <Offset>1ec</Offset>
-        <Offset>0c</Offset>
-      </Offsets>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>47</ID>
-      <Description>"Base Map"</Description>
-      <LastState Value="2" RealAddress="00A8F060"/>
-      <VariableType>4 Bytes</VariableType>
-      <Address>Game.exe+68F060</Address>
-    </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>
+  <Comments>base ay 0105EA78</Comments>
 </CheatTable>

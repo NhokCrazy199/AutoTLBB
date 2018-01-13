@@ -1,7 +1,6 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include <string>
 #include <QDebug>
 
 class GameWindowInfo;
@@ -19,13 +18,17 @@ class Player
     Player(const GameWindowInfo* gameWindowInfo);
 
   public:
-    std::string getName() const;
+    char* getName() const;
     int getMapId() const;
+    QString getMapName() const;
     int getHp() const;
     int getMaxHp() const;
+    float getHpPercent() const;
     int getMp() const;
     int getMaxMp() const;
+    float getMpPercent() const;
     int getMenpaiId() const;
+    QString getMenpaiName() const;
     Position getPosition() const;
     float getPosX() const;
     float getPosY() const;
