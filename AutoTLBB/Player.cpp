@@ -1,5 +1,7 @@
 #include "Player.hpp"
 
+#include <QFile>
+
 #include "GameWindowInfo.hpp"
 
 Player::Player(const GameWindowInfo* gameWindowInfo) :
@@ -19,8 +21,8 @@ QDebug operator<<(QDebug qdb, const Player& player)
   qdb << "MenpaiId: " << player.getMenpaiId();
   qdb << "MenpaiName: " << player.getMenpaiName();
   qdb << "Pos(x, y)" << player.getPosX() << "," << player.getPosY();
-  qdb << "MapId: " << player.getMapId();
-  qdb << "MapName: " << player.getMapName();
+  qdb << "SceneId: " << player.getSceneId();
+  qdb << "SceneName: " << player.getSceneName();
 
   return qdb;
 }
@@ -44,7 +46,7 @@ QString Player::getName() const
   return name;
 }
 
-int Player::getMapId() const
+int Player::getSceneId() const
 {
   DWORD adr = 0xA8F060;
   int mapId = m_gameWindowInfo->readMemory<int>(adr);
@@ -52,11 +54,35 @@ int Player::getMapId() const
   return mapId;
 }
 
-QString Player::getMapName() const
+QString Player::getSceneName() const
 {
-  int mapId = this->getMapId();
+  QFile sceneDefineEx(":/app_res/SceneDefineEx.txt");
 
-  return "+";
+  QString sceneName = "Empty";
+
+  if (sceneDefineEx.open(QIODevice::ReadOnly))
+  {
+    int mapId = this->getSceneId();
+
+    // Pass 2 line
+    sceneDefineEx.readLine();
+    sceneDefineEx.readLine();
+
+    while (!sceneDefineEx.atEnd())
+    {
+      QByteArray line = sceneDefineEx.readLine();
+      auto lineArr = line.split('\t');
+
+      if (this->getSceneId() == lineArr.at(0).toInt())
+      {
+        sceneName = lineArr.at(1);
+        break;
+      }
+    }
+    sceneDefineEx.close();
+  }
+
+  return sceneName;
 }
 
 int Player::getHp() const
@@ -134,7 +160,7 @@ QString Player::getMenpaiName() const
       menpaiName = "";
       break;
     case 2:
-      menpaiName = "";
+      menpaiName = "Cai Bang";
       break;
     case 3:
       menpaiName = "";

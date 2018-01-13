@@ -19,8 +19,8 @@ class Player
 
   public:
     QString getName() const;
-    int getMapId() const;
-    QString getMapName() const;
+    int getSceneId() const;
+    QString getSceneName() const;
     int getHp() const;
     int getMaxHp() const;
     float getHpPercent() const;

@@ -54,4 +54,5 @@ FORMS += \
         MainWindow.ui
 
 RESOURCES += \
-        QDarkStyle/style.qrc
+        Resources/style.qrc \
+    Resources/app_res.qrc
