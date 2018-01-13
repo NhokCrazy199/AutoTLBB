@@ -40,26 +40,23 @@ MainWindow::MainWindow(QWidget *parent) :
 
       qDebug() << *player;
 
-      auto no = new QTableWidgetItem("111111");
-      ui->gameListTableWidget->setItem(i, 1, no);
+      auto no = new QTableWidgetItem(QString::number(i + 1));
+      ui->gameListTableWidget->setItem(i, 0, no);
 
-      auto username = new QTableWidgetItem("111111");
-      ui->gameListTableWidget->setItem(i, 2, username);
+      auto username = new QTableWidgetItem(player->getName());
+      ui->gameListTableWidget->setItem(i, 1, username);
 
-      auto hp = new QTableWidgetItem("111111111");
-      ui->gameListTableWidget->setItem(i, 3, hp);
+      auto hp = new QTableWidgetItem(QString::number(player->getHpPercent()));
+      ui->gameListTableWidget->setItem(i, 2, hp);
 
-      auto mp = new QTableWidgetItem("1");
-      ui->gameListTableWidget->setItem(i, 4, mp);
+      auto mp = new QTableWidgetItem(QString::number(player->getMpPercent()));
+      ui->gameListTableWidget->setItem(i, 3, mp);
 
       auto pet_hp = new QTableWidgetItem("1");
-      ui->gameListTableWidget->setItem(i, 5, pet_hp);
+      ui->gameListTableWidget->setItem(i, 4, pet_hp);
 
       auto mode = new QTableWidgetItem("1");
-      ui->gameListTableWidget->setItem(i, 6, mode);
-
-      auto status = new QTableWidgetItem("1");
-      ui->gameListTableWidget->setItem(i, 7, status);
+      ui->gameListTableWidget->setItem(i, 5, mode);
 
       ui->gameListTableWidget->setSizeAdjustPolicy(QTableWidget::QAbstractItemView::AdjustToContents);
 

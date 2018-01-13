@@ -30,8 +30,9 @@ class GameWindowInfo
 
       auto r = ::ReadProcessMemory(
             this->m_handle,
-            reinterpret_cast<LPVOID>(address),
-            &value, sizeof(T), nullptr
+            reinterpret_cast<LPCVOID>(address),
+            reinterpret_cast<LPVOID>(&value),
+            sizeof(T), nullptr
             );
       if (!r)
       {

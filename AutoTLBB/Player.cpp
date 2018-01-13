@@ -12,11 +12,15 @@ QDebug operator<<(QDebug qdb, const Player& player)
   qdb << "Name: " << player.getName();
   qdb << "HP: " << player.getHp();
   qdb << "Max Hp: " << player.getMaxHp();
+  qdb << "Hp Percent: " << player.getHpPercent();
   qdb << "Mp: " << player.getMp();
   qdb << "Max Mp: " << player.getMaxMp();
+  qdb << "Mp Percent: " << player.getMpPercent();
   qdb << "MenpaiId: " << player.getMenpaiId();
+  qdb << "MenpaiName: " << player.getMenpaiName();
   qdb << "Pos(x, y)" << player.getPosX() << "," << player.getPosY();
   qdb << "MapId: " << player.getMapId();
+  qdb << "MapName: " << player.getMapName();
 
   return qdb;
 }
@@ -27,7 +31,8 @@ char* Player::getName() const
     0x145EB34, 0xC, 0x1EC, 0x4, 0x3C
   };
 
-  return m_gameWindowInfo->readMemory<char*>(adrs);
+  return ";";
+//  return m_gameWindowInfo->readMemory<char*>(adrs);
 }
 
 int Player::getMapId() const
@@ -65,7 +70,10 @@ int Player::getMaxHp() const
 
 float Player::getHpPercent() const
 {
-  return this->getHp() / this->getMaxHp() * 100;
+  float divide = static_cast<float>(this->getHp())
+      /
+      static_cast<float>(this->getMaxHp());
+  return divide * 100;
 }
 
 int Player::getMp() const
@@ -88,7 +96,10 @@ int Player::getMaxMp() const
 
 float Player::getMpPercent() const
 {
-  return this->getMp() / this->getMaxMp() * 100;
+  float divide = static_cast<float>(this->getMp())
+      /
+      static_cast<float>(this->getMaxMp());
+  return divide * 100;
 }
 
 int Player::getMenpaiId() const
@@ -104,7 +115,50 @@ QString Player::getMenpaiName() const
 {
   int menpaiId = this->getMenpaiId();
 
-  return "";
+  QString menpaiName;
+  switch(menpaiId)
+  {
+    case 0:
+      menpaiName = "";
+      break;
+    case 1:
+      menpaiName = "";
+      break;
+    case 2:
+      menpaiName = "";
+      break;
+    case 3:
+      menpaiName = "";
+      break;
+    case 4:
+      menpaiName = "";
+      break;
+    case 5:
+      menpaiName = "";
+      break;
+    case 6:
+      menpaiName = "";
+      break;
+    case 7:
+      menpaiName = "";
+      break;
+    case 8:
+      menpaiName = "";
+      break;
+    case 9:
+      menpaiName = "";
+      break;
+    case 10:
+      menpaiName = "";
+      break;
+    case 11:
+      menpaiName = "";
+      break;
+    default:
+      menpaiName = "Not found";
+  }
+
+  return menpaiName;
 }
 
 Player::Position Player::getPosition() const
