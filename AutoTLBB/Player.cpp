@@ -25,14 +25,23 @@ QDebug operator<<(QDebug qdb, const Player& player)
   return qdb;
 }
 
-char* Player::getName() const
+QString Player::getName() const
 {
   std::vector<DWORD> adrs{
     0x145EB34, 0xC, 0x1EC, 0x4, 0x3C
   };
 
-  return ";";
-//  return m_gameWindowInfo->readMemory<char*>(adrs);
+  QString name;
+  name.resize(13);
+
+  for (std::size_t i = 0; i < name.size(); i++)
+  {
+    name[i] = m_gameWindowInfo->readMemory<char>(adrs);
+    *(adrs.end()-1) += 0x1;
+    qDebug() << name.at(i);
+  }
+
+  return name;
 }
 
 int Player::getMapId() const

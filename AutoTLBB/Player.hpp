@@ -18,7 +18,7 @@ class Player
     Player(const GameWindowInfo* gameWindowInfo);
 
   public:
-    char* getName() const;
+    QString getName() const;
     int getMapId() const;
     QString getMapName() const;
     int getHp() const;
