@@ -56,3 +56,13 @@ Player* GameWindowInfo::getPlayer() const
 {
   return m_player;
 }
+
+void GameWindowInfo::sendMessage(const UINT msg, const WPARAM wParam, const LPARAM lParam) const
+{
+  ::SendMessage(m_hwnd, msg, wParam, lParam);
+}
+
+void GameWindowInfo::postMessage(const UINT msg, const WPARAM wParam, const LPARAM lParam) const
+{
+  ::PostMessage(m_hwnd, msg, wParam, lParam);
+}

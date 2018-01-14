@@ -222,3 +222,11 @@ float Player::getPosY() const
 
   return m_gameWindowInfo->readMemory<float>(adrs);
 }
+
+void Player::sendChatMsg(const QString& msg)
+{
+  for (int i = 0; i < msg.size(); i++)
+  {
+    m_gameWindowInfo->sendMessage(WM_CHAR, 1, 1);
+  }
+}

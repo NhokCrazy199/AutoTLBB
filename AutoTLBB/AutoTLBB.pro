@@ -42,16 +42,22 @@ SOURCES += \
         MainWindow.cpp \
         Constants.cpp \
     GameWindowInfo.cpp \
-    Player.cpp
+    Player.cpp \
+    player_control_tabs/GeneralTab.cpp \
+    player_control_tabs/ItemTab.cpp
 
 HEADERS += \
         MainWindow.hpp \
         Constants.hpp \
     GameWindowInfo.hpp \
-    Player.hpp
+    Player.hpp \
+    player_control_tabs/GeneralTab.hpp \
+    player_control_tabs/ItemTab.hpp
 
 FORMS += \
-        MainWindow.ui
+        MainWindow.ui \
+    player_control_tabs/GeneralTab.ui \
+    player_control_tabs/ItemTab.ui
 
 RESOURCES += \
         Resources/style.qrc \

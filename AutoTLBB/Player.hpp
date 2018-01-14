@@ -32,6 +32,7 @@ class Player
     Position getPosition() const;
     float getPosX() const;
     float getPosY() const;
+    void sendChatMsg(const QString& msg);
 
   private:
     const GameWindowInfo *m_gameWindowInfo;

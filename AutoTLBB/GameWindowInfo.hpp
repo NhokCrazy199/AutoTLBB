@@ -21,6 +21,8 @@ class GameWindowInfo
     void setProcessId(const DWORD processId);
     DWORD getProcessId() const;
     Player* getPlayer() const;
+    void sendMessage(const UINT msg, const WPARAM wParam, const LPARAM lParam) const;
+    void postMessage(const UINT msg, const WPARAM wParam, const LPARAM lParam) const;
 
   public:
     template<typename T>

@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>300</width>
-    <height>602</height>
+    <width>295</width>
+    <height>596</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -61,7 +61,7 @@
       </property>
       <property name="minimumSize">
        <size>
-        <width>300</width>
+        <width>0</width>
         <height>150</height>
        </size>
       </property>
@@ -93,7 +93,7 @@
        <number>6</number>
       </property>
       <attribute name="horizontalHeaderVisible">
-       <bool>true</bool>
+       <bool>false</bool>
       </attribute>
       <attribute name="horizontalHeaderCascadingSectionResizes">
        <bool>true</bool>
@@ -155,9 +155,9 @@
      </widget>
     </item>
     <item row="4" column="0">
-     <widget class="QTabWidget" name="tabWidget">
+     <widget class="QTabWidget" name="autoControlTabWidget">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
@@ -165,13 +165,50 @@
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
       </property>
-      <property name="currentIndex">
-       <number>0</number>
+      <property name="tabPosition">
+       <enum>QTabWidget::North</enum>
       </property>
-      <widget class="QWidget" name="tab">
+      <property name="tabShape">
+       <enum>QTabWidget::Rounded</enum>
+      </property>
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="generalTab">
        <attribute name="title">
-        <string>Tab 1</string>
+        <string>General</string>
        </attribute>
+       <widget class="QWidget" name="gridLayoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>281</width>
+          <height>361</height>
+         </rect>
+        </property>
+        <layout class="QGridLayout" name="generalTabContent">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="itemTab">
+       <attribute name="title">
+        <string>Item</string>
+       </attribute>
+       <widget class="QWidget" name="gridLayoutWidget_2">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>281</width>
+          <height>361</height>
+         </rect>
+        </property>
+        <layout class="QGridLayout" name="itemTabContent"/>
+       </widget>
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -181,13 +218,15 @@
      </widget>
     </item>
    </layout>
+   <zorder>autoControlTabWidget</zorder>
+   <zorder>gameListTableWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>300</width>
+     <width>295</width>
      <height>20</height>
     </rect>
    </property>

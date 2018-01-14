@@ -1,6 +1,9 @@
 #include "MainWindow.hpp"
 #include "ui_MainWindow.h"
 
+#include "player_control_tabs/GeneralTab.hpp"
+#include "player_control_tabs/ItemTab.hpp"
+
 #include <QMessageBox>
 #include <QFile>
 #include <QDebug>
@@ -18,6 +21,9 @@ MainWindow::MainWindow(QWidget *parent) :
   ui(new Ui::MainWindow)
 {
   ui->setupUi(this);
+
+  ui->generalTabContent->addWidget(new GeneralTab(ui->generalTab));
+  ui->itemTabContent->addWidget(new ItemTab(ui->itemTab));
 
   this->setMinimumSize(this->size());
 //  ui->gameListTableWidget->verticalHeader()->setVisible(false);
@@ -146,14 +152,9 @@ bool MainWindow::initGamesProcess()
 
   for (const auto& gameWindowInfo : m_gamesWindowInfo)
   {
-    auto message = WM_LBUTTONDOWN;
-    auto wParam = 0x1;
-    auto lParam = 0x1BC0278;
-    ::SendMessage(gameWindowInfo->getHwnd(), message, wParam, lParam);
-    message = WM_LBUTTONUP;
-    wParam = 0x0;
-    lParam = 0x1BC0279;
-    ::SendMessage(gameWindowInfo->getHwnd(), message, wParam, lParam);
+    gameWindowInfo->postMessage(WM_KEYDOWN, 'C', 0);
+    gameWindowInfo->postMessage(WM_CHAR, 'C', 0);
+    gameWindowInfo->postMessage(WM_KEYDOWN, 'C', 0);
     qDebug() << "Sent";
   }
 
