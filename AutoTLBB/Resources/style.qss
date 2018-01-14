@@ -1295,3 +1295,8 @@ QDateEdit::down-arrow:focus
 {
     image: url(:/qss_icons/rc/down_arrow.png);
 }
+
+QTabWidget::pane {
+    border: 0;
+    margin: 0 0 -13px 0;
+}

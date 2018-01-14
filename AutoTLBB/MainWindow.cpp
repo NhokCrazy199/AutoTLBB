@@ -3,6 +3,7 @@
 
 #include "player_control_tabs/GeneralTab.hpp"
 #include "player_control_tabs/ItemTab.hpp"
+#include "player_control_tabs/SkillTab.hpp"
 
 #include <QMessageBox>
 #include <QFile>
@@ -24,15 +25,23 @@ MainWindow::MainWindow(QWidget *parent) :
 
   ui->generalTabContent->addWidget(new GeneralTab(ui->generalTab));
   ui->itemTabContent->addWidget(new ItemTab(ui->itemTab));
+  ui->skillTabContent->addWidget(new SkillTab(ui->skillTab));
 
   this->setMinimumSize(this->size());
 //  ui->gameListTableWidget->verticalHeader()->setVisible(false);
   ui->gameListTableWidget->horizontalHeader()->resizeSections(QHeaderView::ResizeToContents);
 
-  QFile styleSheet(":/qdarkstyle/style.qss");
-  styleSheet.open(QFile::ReadOnly);
-  this->setStyleSheet(styleSheet.readAll());
-  styleSheet.close();
+  {
+    QFile styleSheet(":/qdarkstyle/style.qss");
+    styleSheet.open(QFile::ReadOnly);
+    this->setStyleSheet(styleSheet.readAll());
+    styleSheet.close();
+  }
+  {
+//    QFile styleSheet(":/qdarkstyle/app.qss");
+//    styleSheet.open(QFile::ReadOnly);
+//    styleSheet.close();
+  }
 
   // TODO
   this->init();
@@ -60,40 +69,40 @@ bool MainWindow::init()
 
 bool MainWindow::initGamesPlayerList()
 {
-    ui->gameListTableWidget->setRowCount(m_gamesWindowInfo.size());
-    for (std::size_t i = 0; i < m_gamesWindowInfo.size(); i++)
-    {
-      auto gameWindowInfo = m_gamesWindowInfo.at(i);
-      ::SetWindowText(gameWindowInfo->getHwnd(), TEXT("Test TLBB Change Win Title"));
+  ui->gameListTableWidget->setRowCount(m_gamesWindowInfo.size());
+  for (std::size_t i = 0; i < m_gamesWindowInfo.size(); i++)
+  {
+    auto gameWindowInfo = m_gamesWindowInfo.at(i);
+    ::SetWindowText(gameWindowInfo->getHwnd(), TEXT("Test TLBB Change Win Title"));
 
-      auto player = gameWindowInfo->getPlayer();
+    auto player = gameWindowInfo->getPlayer();
 
-      qDebug() << *player;
+    qDebug() << *player;
 
-      auto no = new QTableWidgetItem(QString::number(i + 1));
-      ui->gameListTableWidget->setItem(i, 0, no);
+    auto no = new QTableWidgetItem(QString::number(i + 1));
+    ui->gameListTableWidget->setItem(i, 0, no);
 
-      auto username = new QTableWidgetItem(player->getName());
-      ui->gameListTableWidget->setItem(i, 1, username);
+    auto username = new QTableWidgetItem(player->getName());
+    ui->gameListTableWidget->setItem(i, 1, username);
 
-      auto hp = new QTableWidgetItem(QString::number(player->getHpPercent()));
-      ui->gameListTableWidget->setItem(i, 2, hp);
+    auto hp = new QTableWidgetItem(QString::number(player->getHpPercent()));
+    ui->gameListTableWidget->setItem(i, 2, hp);
 
-      auto mp = new QTableWidgetItem(QString::number(player->getMpPercent()));
-      ui->gameListTableWidget->setItem(i, 3, mp);
+    auto mp = new QTableWidgetItem(QString::number(player->getMpPercent()));
+    ui->gameListTableWidget->setItem(i, 3, mp);
 
-      auto pet_hp = new QTableWidgetItem("1");
-      ui->gameListTableWidget->setItem(i, 4, pet_hp);
+    auto pet_hp = new QTableWidgetItem("1");
+    ui->gameListTableWidget->setItem(i, 4, pet_hp);
 
-      auto mode = new QTableWidgetItem("1");
-      ui->gameListTableWidget->setItem(i, 5, mode);
+    auto mode = new QTableWidgetItem("1");
+    ui->gameListTableWidget->setItem(i, 5, mode);
 
-      ui->gameListTableWidget->setSizeAdjustPolicy(QTableWidget::QAbstractItemView::AdjustToContents);
+    ui->gameListTableWidget->setSizeAdjustPolicy(QTableWidget::QAbstractItemView::AdjustToContents);
 
-      qDebug() << "Added";
-    }
+    qDebug() << "Added";
+  }
 
-    return true;
+  return true;
 }
 
 static BOOL CALLBACK EnumWindowsProcCallback(HWND hwnd, LPARAM lParam)

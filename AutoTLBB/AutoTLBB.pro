@@ -44,7 +44,8 @@ SOURCES += \
     GameWindowInfo.cpp \
     Player.cpp \
     player_control_tabs/GeneralTab.cpp \
-    player_control_tabs/ItemTab.cpp
+    player_control_tabs/ItemTab.cpp \
+    player_control_tabs/SkillTab.cpp
 
 HEADERS += \
         MainWindow.hpp \
@@ -52,12 +53,14 @@ HEADERS += \
     GameWindowInfo.hpp \
     Player.hpp \
     player_control_tabs/GeneralTab.hpp \
-    player_control_tabs/ItemTab.hpp
+    player_control_tabs/ItemTab.hpp \
+    player_control_tabs/SkillTab.hpp
 
 FORMS += \
         MainWindow.ui \
     player_control_tabs/GeneralTab.ui \
-    player_control_tabs/ItemTab.ui
+    player_control_tabs/ItemTab.ui \
+    player_control_tabs/SkillTab.ui
 
 RESOURCES += \
         Resources/style.qrc \

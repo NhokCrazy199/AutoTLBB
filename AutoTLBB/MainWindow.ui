@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>295</width>
-    <height>596</height>
+    <width>304</width>
+    <height>608</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -93,7 +93,7 @@
        <number>6</number>
       </property>
       <attribute name="horizontalHeaderVisible">
-       <bool>false</bool>
+       <bool>true</bool>
       </attribute>
       <attribute name="horizontalHeaderCascadingSectionResizes">
        <bool>true</bool>
@@ -183,8 +183,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>281</width>
-          <height>361</height>
+          <width>291</width>
+          <height>371</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="generalTabContent">
@@ -192,6 +192,22 @@
           <number>0</number>
          </property>
         </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="skillTab">
+       <attribute name="title">
+        <string>Skill</string>
+       </attribute>
+       <widget class="QWidget" name="gridLayoutWidget_3">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>291</width>
+          <height>371</height>
+         </rect>
+        </property>
+        <layout class="QGridLayout" name="skillTabContent"/>
        </widget>
       </widget>
       <widget class="QWidget" name="itemTab">
@@ -203,17 +219,12 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>281</width>
-          <height>361</height>
+          <width>291</width>
+          <height>371</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="itemTabContent"/>
        </widget>
-      </widget>
-      <widget class="QWidget" name="tab_2">
-       <attribute name="title">
-        <string>Tab 2</string>
-       </attribute>
       </widget>
      </widget>
     </item>
@@ -226,13 +237,13 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>295</width>
+     <width>304</width>
      <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>System</string>
     </property>
     <addaction name="actionReload_Player_List"/>
    </widget>
