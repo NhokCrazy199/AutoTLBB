@@ -38,7 +38,10 @@ class GameWindowInfo
             reinterpret_cast<LPVOID>(&value),
             sizeof(T), nullptr
             );
-      if (!r)
+      if (r)
+      {
+      }
+      else
       {
         qDebug() << "Can not read memory";
       }
@@ -63,7 +66,7 @@ class GameWindowInfo
     HANDLE m_handle;
     DWORD m_processId;
     Player *m_player;
-    Settings * m_settings;
+    Settings *m_settings;
 
   private:
     friend QDebug operator<<(QDebug qdb, const GameWindowInfo& gameWindowInfo);

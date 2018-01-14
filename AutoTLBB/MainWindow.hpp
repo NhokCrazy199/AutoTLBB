@@ -5,7 +5,7 @@
 
 #include <vector>
 
-#include "GameWindowInfo.hpp"
+#include "games_window/GameWindowInfo.hpp"
 
 #include <Windows.h>
 

@@ -15,7 +15,7 @@
 #include <psapi.h>
 
 #include "Constants.hpp"
-#include "Player.hpp"
+#include "games_window/Player.hpp"
 
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
