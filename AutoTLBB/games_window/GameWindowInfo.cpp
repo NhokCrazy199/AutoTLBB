@@ -1,16 +1,20 @@
 #include "GameWindowInfo.hpp"
 
 #include "Player.hpp"
+#include "Settings.hpp"
 
 GameWindowInfo::GameWindowInfo()
 {
   m_hwnd = nullptr;
   m_handle = nullptr;
   m_player = new Player(this);
+  m_settings = new Settings(this);
 }
 
 GameWindowInfo::~GameWindowInfo()
 {
+  delete m_player;
+  delete m_settings;
 }
 
 QDebug operator<<(QDebug qdb, const GameWindowInfo& gameWindowInfo)
@@ -65,4 +69,9 @@ void GameWindowInfo::sendMessage(const UINT msg, const WPARAM wParam, const LPAR
 void GameWindowInfo::postMessage(const UINT msg, const WPARAM wParam, const LPARAM lParam) const
 {
   ::PostMessage(m_hwnd, msg, wParam, lParam);
+}
+
+Settings* GameWindowInfo::getSettings() const
+{
+  return m_settings;
 }

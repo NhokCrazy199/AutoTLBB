@@ -6,6 +6,7 @@
 #include <Windows.h>
 
 class Player;
+class Settings;
 
 class GameWindowInfo
 {
@@ -23,6 +24,7 @@ class GameWindowInfo
     Player* getPlayer() const;
     void sendMessage(const UINT msg, const WPARAM wParam, const LPARAM lParam) const;
     void postMessage(const UINT msg, const WPARAM wParam, const LPARAM lParam) const;
+    Settings* getSettings() const;
 
   public:
     template<typename T>
@@ -61,6 +63,7 @@ class GameWindowInfo
     HANDLE m_handle;
     DWORD m_processId;
     Player *m_player;
+    Settings * m_settings;
 
   private:
     friend QDebug operator<<(QDebug qdb, const GameWindowInfo& gameWindowInfo);

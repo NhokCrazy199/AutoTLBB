@@ -41,20 +41,22 @@ SOURCES += \
         main.cpp \
         MainWindow.cpp \
         Constants.cpp \
-    GameWindowInfo.cpp \
-    Player.cpp \
+    games_window/GameWindowInfo.cpp \
+    games_window/Player.cpp \
     player_control_tabs/GeneralTab.cpp \
     player_control_tabs/ItemTab.cpp \
-    player_control_tabs/SkillTab.cpp
+    player_control_tabs/SkillTab.cpp \
+    games_window/Settings.cpp
 
 HEADERS += \
         MainWindow.hpp \
         Constants.hpp \
-    GameWindowInfo.hpp \
-    Player.hpp \
+    games_window/GameWindowInfo.hpp \
+    games_window/Player.hpp \
     player_control_tabs/GeneralTab.hpp \
     player_control_tabs/ItemTab.hpp \
-    player_control_tabs/SkillTab.hpp
+    player_control_tabs/SkillTab.hpp \
+    games_window/Settings.hpp
 
 FORMS += \
         MainWindow.ui \
