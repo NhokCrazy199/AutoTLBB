@@ -24,8 +24,13 @@ class MainWindow : public QMainWindow
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+  private slots:
+    void on_actionReload_Player_List_triggered();
+
   private:
+    bool init();
     bool initGamesProcess();
+    bool initGamesPlayerList();
 
   private:
     Ui::MainWindow *ui;

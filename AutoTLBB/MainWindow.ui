@@ -195,6 +195,7 @@
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionReload_Player_List"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -210,6 +211,11 @@
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionReload_Player_List">
+   <property name="text">
+    <string>Reload Player List</string>
    </property>
   </action>
  </widget>

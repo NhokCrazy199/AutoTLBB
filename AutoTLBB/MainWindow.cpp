@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
   ui->setupUi(this);
 
   this->setMinimumSize(this->size());
+//  ui->gameListTableWidget->verticalHeader()->setVisible(false);
   ui->gameListTableWidget->horizontalHeader()->resizeSections(QHeaderView::ResizeToContents);
 
   QFile styleSheet(":/qdarkstyle/style.qss");
@@ -28,8 +29,31 @@ MainWindow::MainWindow(QWidget *parent) :
   styleSheet.close();
 
   // TODO
+  this->init();
+}
+
+MainWindow::~MainWindow()
+{
+  delete ui;
+
+  for (const auto& gameWindowInfo : m_gamesWindowInfo)
+  {
+    delete gameWindowInfo;
+  }
+}
+
+bool MainWindow::init()
+{
   if (this->initGamesProcess())
   {
+    this->initGamesPlayerList();
+  }
+
+  return true;
+}
+
+bool MainWindow::initGamesPlayerList()
+{
     ui->gameListTableWidget->setRowCount(m_gamesWindowInfo.size());
     for (std::size_t i = 0; i < m_gamesWindowInfo.size(); i++)
     {
@@ -62,17 +86,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
       qDebug() << "Added";
     }
-  }
-}
 
-MainWindow::~MainWindow()
-{
-  delete ui;
-
-  for (const auto& gameWindowInfo : m_gamesWindowInfo)
-  {
-    delete gameWindowInfo;
-  }
+    return true;
 }
 
 static BOOL CALLBACK EnumWindowsProcCallback(HWND hwnd, LPARAM lParam)
@@ -92,6 +107,20 @@ static BOOL CALLBACK EnumWindowsProcCallback(HWND hwnd, LPARAM lParam)
     }
 
     ::GetWindowThreadProcessId(hwnd, &processId);
+    bool isExistsProcess = false;
+    for (std::size_t i = 0; i < gamesWindowInfo->size(); i++)
+    {
+      if (gamesWindowInfo->at(i)->getProcessId() == processId)
+      {
+        isExistsProcess = true;
+        break;
+      }
+    }
+    if (isExistsProcess)
+    {
+      continue;
+    }
+
     handle = ::OpenProcess(READ_CONTROL | PROCESS_ALL_ACCESS | PROCESS_VM_READ, FALSE, processId);
     if (handle == nullptr)
     {
@@ -115,5 +144,23 @@ bool MainWindow::initGamesProcess()
 {
   ::EnumWindows(&EnumWindowsProcCallback, reinterpret_cast<LPARAM>(&m_gamesWindowInfo));
 
+  for (const auto& gameWindowInfo : m_gamesWindowInfo)
+  {
+    auto message = WM_LBUTTONDOWN;
+    auto wParam = 0x1;
+    auto lParam = 0x1BC0278;
+    ::SendMessage(gameWindowInfo->getHwnd(), message, wParam, lParam);
+    message = WM_LBUTTONUP;
+    wParam = 0x0;
+    lParam = 0x1BC0279;
+    ::SendMessage(gameWindowInfo->getHwnd(), message, wParam, lParam);
+    qDebug() << "Sent";
+  }
+
   return !m_gamesWindowInfo.empty();
+}
+
+void MainWindow::on_actionReload_Player_List_triggered()
+{
+  this->init();
 }

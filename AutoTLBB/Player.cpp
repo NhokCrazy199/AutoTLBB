@@ -40,7 +40,6 @@ QString Player::getName() const
   {
     name[i] = m_gameWindowInfo->readMemory<char>(adrs);
     *(adrs.end()-1) += 0x1;
-    qDebug() << name.at(i);
   }
 
   return name;
@@ -62,7 +61,7 @@ QString Player::getSceneName() const
 
   if (sceneDefineEx.open(QIODevice::ReadOnly))
   {
-    int mapId = this->getSceneId();
+    int sceneId = this->getSceneId();
 
     // Pass 2 line
     sceneDefineEx.readLine();
@@ -73,7 +72,7 @@ QString Player::getSceneName() const
       QByteArray line = sceneDefineEx.readLine();
       auto lineArr = line.split('\t');
 
-      if (this->getSceneId() == lineArr.at(0).toInt())
+      if (sceneId == lineArr.at(0).toInt())
       {
         sceneName = lineArr.at(1);
         break;
