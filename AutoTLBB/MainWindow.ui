@@ -172,60 +172,8 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>-1</number>
       </property>
-      <widget class="QWidget" name="generalTab">
-       <attribute name="title">
-        <string>General</string>
-       </attribute>
-       <widget class="QWidget" name="gridLayoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>291</width>
-          <height>371</height>
-         </rect>
-        </property>
-        <layout class="QGridLayout" name="generalTabContent">
-         <property name="spacing">
-          <number>0</number>
-         </property>
-        </layout>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="skillTab">
-       <attribute name="title">
-        <string>Skill</string>
-       </attribute>
-       <widget class="QWidget" name="gridLayoutWidget_3">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>291</width>
-          <height>371</height>
-         </rect>
-        </property>
-        <layout class="QGridLayout" name="skillTabContent"/>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="itemTab">
-       <attribute name="title">
-        <string>Item</string>
-       </attribute>
-       <widget class="QWidget" name="gridLayoutWidget_2">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>291</width>
-          <height>371</height>
-         </rect>
-        </property>
-        <layout class="QGridLayout" name="itemTabContent"/>
-       </widget>
-      </widget>
      </widget>
     </item>
    </layout>

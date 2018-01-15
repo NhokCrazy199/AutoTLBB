@@ -225,8 +225,16 @@ float Player::getPosY() const
 
 void Player::sendChatMsg(const QString& msg)
 {
+  m_gameWindowInfo->postMessage(WM_KEYDOWN, VK_RETURN, 0x1C0001);
+  m_gameWindowInfo->postMessage(WM_KEYDOWN, VK_DOWN, 0x500001);
   for (int i = 0; i < msg.size(); i++)
   {
-    m_gameWindowInfo->sendMessage(WM_CHAR, 1, 1);
+    m_gameWindowInfo->postMessage(WM_CHAR, msg.at(i).toLatin1(), 0);
   }
+  m_gameWindowInfo->postMessage(WM_KEYDOWN, VK_RETURN, 0x1C0001);
+  m_gameWindowInfo->postMessage(WM_KEYUP, VK_RETURN, 0x1C0001);
+  m_gameWindowInfo->postMessage(WM_KEYDOWN, VK_RETURN, 0x1C0001);
+  m_gameWindowInfo->postMessage(WM_KEYUP, VK_RETURN, 0x1C0001);
+  m_gameWindowInfo->postMessage(WM_KEYDOWN, VK_RETURN, 0x1C0001);
+  m_gameWindowInfo->postMessage(WM_KEYUP, VK_RETURN, 0x1C0001);
 }
