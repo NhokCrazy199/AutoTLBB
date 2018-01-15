@@ -76,10 +76,15 @@ bool MainWindow::initAutoControlWidgets()
   m_autoControlWidgets["Item"] = new ItemTab(ui->autoControlTabWidget);
   m_autoControlWidgets["Skill"] = new SkillTab(ui->autoControlTabWidget);
 
-  for (auto& widget : m_autoControlWidgets)
+  for (const auto& widget : m_autoControlWidgets)
   {
     ui->autoControlTabWidget->addTab(widget.second, widget.first);
   }
+  qDebug() << ui->autoControlTabWidget->widget(1)->isHidden();
+  qDebug() << ui->autoControlTabWidget->widget(2)->isHidden();
+  qDebug() << ui->autoControlTabWidget->widget(0)->isHidden();
+
+  return true;
 }
 
 bool MainWindow::initGamesPlayerList()
@@ -190,11 +195,19 @@ void MainWindow::on_actionReload_Player_List_triggered()
 
 void MainWindow::on_gameListTableWidget_itemClicked(QTableWidgetItem *item)
 {
-  for (const auto& child : ui->autoControlTabWidget->children())
+  for (std::size_t i = 0; i < m_autoControlWidgets.size(); i++)
   {
-    for (const auto& c : child->children())
+    auto widget = ui->autoControlTabWidget->widget(i);
+    if (widget == nullptr)
     {
-      qDebug() << 1;
+      continue;
     }
+
+    if (widget->isHidden())
+    {
+      continue;
+    }
+
+    qDebug() << "Found";
   }
 }
