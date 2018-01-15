@@ -15,6 +15,7 @@
 #include <psapi.h>
 
 #include "Constants.hpp"
+#include "games_window/GameWindowInfo.hpp"
 #include "games_window/Player.hpp"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -22,10 +23,6 @@ MainWindow::MainWindow(QWidget *parent) :
   ui(new Ui::MainWindow)
 {
   ui->setupUi(this);
-
-  ui->generalTabContent->addWidget(new GeneralTab(ui->generalTab));
-  ui->itemTabContent->addWidget(new ItemTab(ui->itemTab));
-  ui->skillTabContent->addWidget(new SkillTab(ui->skillTab));
 
   this->setMinimumSize(this->size());
 //  ui->gameListTableWidget->verticalHeader()->setVisible(false);
@@ -43,13 +40,17 @@ MainWindow::MainWindow(QWidget *parent) :
 //    styleSheet.close();
   }
 
-  // TODO
   this->init();
 }
 
 MainWindow::~MainWindow()
 {
   delete ui;
+
+  for (const auto& autoControlWidget : m_autoControlWidgets)
+  {
+    delete autoControlWidget.second;
+  }
 
   for (const auto& gameWindowInfo : m_gamesWindowInfo)
   {
@@ -59,10 +60,29 @@ MainWindow::~MainWindow()
 
 bool MainWindow::init()
 {
+  this->initAutoControlWidgets();
+
   if (this->initGamesProcess())
   {
     this->initGamesPlayerList();
   }
+
+  return true;
+}
+
+bool MainWindow::initAutoControlWidgets()
+{
+  m_autoControlWidgets["General"] = new GeneralTab(ui->autoControlTabWidget);
+  m_autoControlWidgets["Item"] = new ItemTab(ui->autoControlTabWidget);
+  m_autoControlWidgets["Skill"] = new SkillTab(ui->autoControlTabWidget);
+
+  for (const auto& widget : m_autoControlWidgets)
+  {
+    ui->autoControlTabWidget->addTab(widget.second, widget.first);
+  }
+  qDebug() << ui->autoControlTabWidget->widget(1)->isHidden();
+  qDebug() << ui->autoControlTabWidget->widget(2)->isHidden();
+  qDebug() << ui->autoControlTabWidget->widget(0)->isHidden();
 
   return true;
 }
@@ -161,9 +181,7 @@ bool MainWindow::initGamesProcess()
 
   for (const auto& gameWindowInfo : m_gamesWindowInfo)
   {
-    gameWindowInfo->postMessage(WM_KEYDOWN, 'C', 0);
-    gameWindowInfo->postMessage(WM_CHAR, 'C', 0);
-    gameWindowInfo->postMessage(WM_KEYDOWN, 'C', 0);
+    gameWindowInfo->getPlayer()->sendChatMsg("ssss");
     qDebug() << "Sent";
   }
 
@@ -173,4 +191,23 @@ bool MainWindow::initGamesProcess()
 void MainWindow::on_actionReload_Player_List_triggered()
 {
   this->init();
+}
+
+void MainWindow::on_gameListTableWidget_itemClicked(QTableWidgetItem *item)
+{
+  for (std::size_t i = 0; i < m_autoControlWidgets.size(); i++)
+  {
+    auto widget = ui->autoControlTabWidget->widget(i);
+    if (widget == nullptr)
+    {
+      continue;
+    }
+
+    if (widget->isHidden())
+    {
+      continue;
+    }
+
+    qDebug() << "Found";
+  }
 }
