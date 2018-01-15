@@ -4,6 +4,7 @@
 #include <QDebug>
 
 #include <Windows.h>
+#include "../Preprocessor.hpp"
 
 class Player;
 class Settings;
@@ -15,16 +16,8 @@ class GameWindowInfo
     ~GameWindowInfo();
 
   public:
-    void setHwnd(const HWND hwnd);
-    HWND getHwnd() const;
-    void setHandle(const HANDLE handle);
-    HANDLE getHandle() const;
-    void setProcessId(const DWORD processId);
-    DWORD getProcessId() const;
-    Player* getPlayer() const;
     void sendMessage(const UINT msg, const WPARAM wParam, const LPARAM lParam) const;
     void postMessage(const UINT msg, const WPARAM wParam, const LPARAM lParam) const;
-    Settings* getSettings() const;
 
   public:
     template<typename T>
@@ -62,11 +55,11 @@ class GameWindowInfo
     }
 
   private:
-    HWND m_hwnd;
-    HANDLE m_handle;
-    DWORD m_processId;
-    Player *m_player;
-    Settings *m_settings;
+    APP_SYNTHESIZE(HWND, m_hwnd, Hwnd)
+    APP_SYNTHESIZE(HANDLE, m_handle, Handle)
+    APP_SYNTHESIZE(DWORD, m_processId, ProcessId)
+    APP_SYNTHESIZE_PTR(Player*, m_player, Player)
+    APP_SYNTHESIZE_PTR(Settings*, m_settings, Settings)
 
   private:
     friend QDebug operator<<(QDebug qdb, const GameWindowInfo& gameWindowInfo);

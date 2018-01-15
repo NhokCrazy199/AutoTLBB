@@ -46,7 +46,10 @@ SOURCES += \
     player_control_tabs/GeneralTab.cpp \
     player_control_tabs/ItemTab.cpp \
     player_control_tabs/SkillTab.cpp \
-    games_window/Settings.cpp
+    games_window/Settings.cpp \
+    games_window/settings/General.cpp \
+    games_window/settings/Item.cpp \
+    games_window/settings/Skill.cpp
 
 HEADERS += \
         MainWindow.hpp \
@@ -56,7 +59,11 @@ HEADERS += \
     player_control_tabs/GeneralTab.hpp \
     player_control_tabs/ItemTab.hpp \
     player_control_tabs/SkillTab.hpp \
-    games_window/Settings.hpp
+    games_window/Settings.hpp \
+    games_window/settings/General.hpp \
+    games_window/settings/Item.hpp \
+    games_window/settings/Skill.hpp \
+    Preprocessor.hpp
 
 FORMS += \
         MainWindow.ui \

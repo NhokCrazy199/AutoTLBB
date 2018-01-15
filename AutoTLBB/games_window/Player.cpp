@@ -36,7 +36,7 @@ QString Player::getName() const
   QString name;
   name.resize(13);
 
-  for (std::size_t i = 0; i < name.size(); i++)
+  for (int i = 0; i < name.size(); i++)
   {
     name[i] = m_gameWindowInfo->readMemory<char>(adrs);
     *(adrs.end()-1) += 0x1;
